@@ -8,6 +8,7 @@ import com.reis.game.util.MapUtils
  */
 object TileEntityMapper {
 
+    // TODO should the map be per layer?
     private val entitiesPerTile:HashMap<Int, HashSet<GameEntity>?> = HashMap()
 
     fun addEntityToTile(entity: GameEntity, col: Int, row: Int) {

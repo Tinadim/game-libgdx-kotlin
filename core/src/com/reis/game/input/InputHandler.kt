@@ -3,8 +3,10 @@ package com.reis.game.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.math.Vector2
+import com.reis.game.entity.ai.actions.Attack
 import com.reis.game.entity.ai.actions.Move
-import com.reis.game.entity.player.ActionProcessor
+import com.reis.game.entity.components.AiComponent
+import com.reis.game.entity.player.Player
 
 /**
  * Created by bernardoreis on 1/2/18.
@@ -22,6 +24,8 @@ object InputHandler: InputProcessor {
             return updateDirection(0f, 1f)
         } else if (keycode == Input.Keys.DOWN) {
             return updateDirection(0f, -1f)
+        } else if (keycode == Input.Keys.SPACE) {
+            return attack()
         }
         return false
     }
@@ -65,7 +69,17 @@ object InputHandler: InputProcessor {
 
     private fun updateDirection(x: Float, y: Float): Boolean {
         this.direction.add(x, y)
-        ActionProcessor.addAction(Move(this.direction.cpy()))
+        val action = Move(this.direction.cpy())
+        val component = Player.requireComponent<AiComponent>(AiComponent::class.java)
+        component.getActionProcessor().addAction(action)
+        return true
+    }
+
+    private fun attack(): Boolean {
+        val damageSource = Player.currentWeapon.buildDamageSource(Player)
+        val action = Attack(damageSource)
+        val component = Player.requireComponent<AiComponent>(AiComponent::class.java)
+        component.getActionProcessor().addAction(action)
         return true
     }
 }

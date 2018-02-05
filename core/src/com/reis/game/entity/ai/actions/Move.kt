@@ -1,6 +1,7 @@
 package com.reis.game.entity.ai.actions
 
 import com.badlogic.gdx.math.Vector2
+import com.reis.game.contants.ActionConstants
 import com.reis.game.contants.GameConstants
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.MovementComponent
@@ -8,7 +9,7 @@ import com.reis.game.entity.components.MovementComponent
 /**
  * Created by bernardoreis on 1/1/18.
  */
-class Move(private val velocity: Vector2): Action(1) {
+class Move(private val velocity: Vector2): Action(ActionConstants.MOVE_PRIORITY) {
 
     //Local cache of movement component for the entity
     private var component: MovementComponent? = null

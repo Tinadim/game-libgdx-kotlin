@@ -1,12 +1,14 @@
 package com.reis.game.mechanics.collision
 
+import com.reis.game.entity.components.BodyComponent
+import com.reis.game.mechanics.collision.CollisionManager.onGoingCollisions
+
 /**
  * Created by bernardoreis on 1/7/18.
  */
 object CollisionManager {
 
     val onGoingCollisions: HashSet<Collision> = HashSet()
-    val listeners: ArrayList<CollisionListener> = ArrayList()
 
     fun registerCollisions(collisions: Collection<Collision>) {
         collisions.forEach { this.registerCollision(it) }
@@ -23,32 +25,21 @@ object CollisionManager {
         onGoingCollisions.clear()
     }
 
-    fun addCollisionListener(listener: CollisionListener) {
-        listeners.add(listener)
-    }
-
-    fun removeCollisionListener(listener: CollisionListener) {
-        listeners.remove(listener)
-    }
-
     private fun notifyListenersCollisionStarted(collision: Collision) {
-        println("Collision started")
-        this.listeners.forEach {
-            val filter = it.filter
-            if (filter == null || filter.test(collision)) {
-                it.onCollisionStarted(collision)
-            }
-        }
+        val collisionListener = getCollisionListener(collision)
+        collisionListener?.onCollisionStarted(collision)
     }
 
     private fun notifyListenersCollisionEnded(collision: Collision) {
-        println("Collision ended")
-        this.listeners.forEach {
-            val filter = it.filter
-            if (filter == null || filter.test(collision)) {
-                it.onCollisionEnded(collision)
-            }
-        }
+        val collisionListener = getCollisionListener(collision)
+        collisionListener?.onCollisionEnded(collision)
+    }
+
+    private fun getCollisionListener(collision: Collision): CollisionListener? {
+        val entity = collision.entity
+        val collisionListener = entity.getComponent<BodyComponent>(BodyComponent::class.java)?.collisionListener
+        val filter = collisionListener?.filter
+        return if (filter == null || filter.test(collision)) collisionListener else null
     }
 
     private fun checkCollisionEnded(collision: Collision): Boolean {

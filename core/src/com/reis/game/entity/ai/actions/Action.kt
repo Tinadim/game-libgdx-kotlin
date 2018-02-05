@@ -5,7 +5,7 @@ import com.reis.game.entity.GameEntity
 /**
  * Created by bernardoreis on 12/19/17.
  */
-abstract class Action constructor(private val priority: Int) {
+open class Action constructor(private val priority: Int) {
 
     private var finished: Boolean = false
     private var interrupted: Boolean = false

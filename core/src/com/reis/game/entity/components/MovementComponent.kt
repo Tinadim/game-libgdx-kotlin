@@ -14,7 +14,9 @@ class MovementComponent(entity: GameEntity): EntityComponent(entity) {
 
     fun move(velocity: Vector2) {
         this.velocity = this.normalizeVelocity(velocity)
-        this.calcEntityOrientation()
+        if (!velocity.isZero) {
+            this.calcEntityOrientation()
+        }
     }
 
     fun stop() {

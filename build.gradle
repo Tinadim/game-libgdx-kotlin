@@ -103,6 +103,7 @@ project(":core") {
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
     }
 }
 

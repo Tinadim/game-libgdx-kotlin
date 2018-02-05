@@ -1,7 +1,6 @@
 package com.reis.game.entity
 
 import com.badlogic.ashley.core.Component
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.reis.game.contants.GameConstants
@@ -40,6 +39,11 @@ open class GameEntity(val id: Int) : Group() {
         components.draw(this, batch, this.color.a)
     }
 
+    override fun remove(): Boolean {
+        this.getComponent<BodyComponent>(BodyComponent::class.java)?.unbindTiles()
+        return super.remove()
+    }
+
     fun hasComponent(componentClass: Class<out Component>): Boolean {
         return this.components.hasComponent(componentClass)
     }
@@ -74,8 +78,16 @@ open class GameEntity(val id: Int) : Group() {
         this.setCoordinates(row, this.col)
     }
 
+    fun getRow(): Int {
+        return this.row
+    }
+
     fun setCol(col: Int) {
         this.setCoordinates(this.row, col)
+    }
+
+    fun getCol(): Int {
+        return this.col
     }
 
     fun setCoordinates(row: Int, col: Int): GameEntity {
@@ -122,17 +134,17 @@ open class GameEntity(val id: Int) : Group() {
     }
 
     override fun sizeChanged() {
-        getComponent<BodyComponent>(BodyComponent::class.java)?.invalidateHotspots()
+        getComponent<BodyComponent>(BodyComponent::class.java)?.onSizeChanged()
     }
 
     override fun moveBy(x: Float, y: Float) {
         getComponent<BodyComponent>(BodyComponent::class.java)?.unbindTiles()
         super.moveBy(x, y)
-        this.row = MapUtils.toTileCoord(this.y)
-        this.col = MapUtils.toTileCoord(this.x)
     }
 
     override fun positionChanged() {
-        getComponent<BodyComponent>(BodyComponent::class.java)?.invalidateHotspots()
+        this.row = MapUtils.toTileCoord(this.y)
+        this.col = MapUtils.toTileCoord(this.x)
+        getComponent<BodyComponent>(BodyComponent::class.java)?.onPositionChanged()
     }
 }

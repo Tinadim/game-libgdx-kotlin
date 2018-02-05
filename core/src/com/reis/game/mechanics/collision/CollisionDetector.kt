@@ -1,5 +1,6 @@
 package com.reis.game.mechanics.collision
 
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
@@ -17,11 +18,21 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
     private val direction: Vector2 = Vector2(Math.signum(movement.x), Math.signum(movement.y))
 
     private val results: CollisionResults = CollisionResults()
-    private val body: BodyComponent? = entity.getComponent(BodyComponent::class.java)
-    private val hotspotsX = body?.getHotspotsToTest(Axis.X, direction.x)
-    private val hotspotsY = body?.getHotspotsToTest(Axis.Y, direction.y)
+    private val body: BodyComponent = entity.requireComponent(BodyComponent::class.java)
+    private val hitbox: Hitbox = body.getHitbox()
+    private val hotspotsX = hitbox.getHotspotsToTest(Axis.X, direction.x)
+    private val hotspotsY = hitbox.getHotspotsToTest(Axis.Y, direction.y)
 
     companion object {
+        fun checkCollision(entity: GameEntity): CollisionResults {
+            val detector = CollisionDetector(entity, Vector2.Zero)
+            val hotspots = detector.hitbox.getHotspots()
+            for (hotspot in hotspots) {
+                detector.testCollisionForHotspot(hotspot, Vector2.Zero)
+            }
+            return detector.results
+        }
+
         fun isTouching(entity1: GameEntity, entity2: GameEntity): Boolean {
             val distanceX = Math.abs(entity2.getCenterX() - entity1.getCenterX())
             val distanceY = Math.abs(entity2.getCenterY() - entity1.getCenterY())
@@ -103,6 +114,7 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
             this.results.addCollision(Collision(entity, entityToTest))
         }
 
+        // TODO return entityToTest.isTrigger() ?
         return collided
     }
 

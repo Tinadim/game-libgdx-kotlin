@@ -1,7 +1,5 @@
 package com.reis.game.prototypes
 
-import com.reis.game.entity.ai.actions.Idle
-import com.reis.game.entity.ai.states.PlayerState
 import com.reis.game.entity.ai.states.State
 
 /**
@@ -9,5 +7,5 @@ import com.reis.game.entity.ai.states.State
  */
 class AiData {
 
-    val initialState: State = PlayerState()
+    val initialState: State = State()
 }

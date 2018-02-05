@@ -1,38 +1,20 @@
 package com.reis.game.entity.ai.states
 
 import com.reis.game.entity.ai.AI
-import com.reis.game.entity.ai.actions.Action
 import com.reis.game.entity.ai.transitions.StateTransition
 
 /**
  * Created by bernardoreis on 12/19/17.
  */
-open class State constructor(private var action: Action) {
+open class State constructor() {
 
     private var transitions: ArrayList<StateTransition>? = null
 
-    fun enterState(ai: AI) {
-        this.onEnterState(ai)
-        this.action.start(ai.getEntity())
-    }
+    open fun enterState(ai: AI) {}
 
-    open fun onEnterState(ai: AI) {}
+    open fun leaveState(ai: AI, nextState: State) {}
 
-    fun leaveState(ai: AI, nextState: State) {
-        if (!this.action.isFinished()) {
-            this.action.stop(ai.getEntity())
-        }
-        this.onLeaveState(ai, nextState)
-    }
-
-    open fun onLeaveState(ai: AI, nextState: State) {}
-
-    fun update(ai: AI, delta: Float) {
-        this.onUpdate(ai)
-        this.action.update(delta, ai.getEntity())
-    }
-
-    open fun onUpdate(ai: AI) {}
+    open fun update(ai: AI, delta: Float) {}
 
     fun addTransitions(transitions: ArrayList<StateTransition>) {
         transitions.forEach { this.addTransition(it) }
@@ -54,13 +36,5 @@ open class State constructor(private var action: Action) {
 
     fun sortTransitions() {
         this.transitions?.sortBy { it.getPriority() }
-    }
-
-    fun getAction(): Action {
-        return this.action
-    }
-
-    protected fun setAction(action: Action) {
-        this.action = action
     }
 }
