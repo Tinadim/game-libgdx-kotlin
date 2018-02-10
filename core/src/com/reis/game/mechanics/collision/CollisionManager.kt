@@ -1,5 +1,6 @@
 package com.reis.game.mechanics.collision
 
+import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.mechanics.collision.CollisionManager.onGoingCollisions
 
@@ -26,20 +27,25 @@ object CollisionManager {
     }
 
     private fun notifyListenersCollisionStarted(collision: Collision) {
-        val collisionListener = getCollisionListener(collision)
+        var collisionListener = getCollisionListener(collision.entity)
+        collisionListener?.onCollisionStarted(collision)
+
+        collisionListener = getCollisionListener(collision.collidedWith)
         collisionListener?.onCollisionStarted(collision)
     }
 
     private fun notifyListenersCollisionEnded(collision: Collision) {
-        val collisionListener = getCollisionListener(collision)
+        var collisionListener = getCollisionListener(collision.entity)
+        collisionListener?.onCollisionEnded(collision)
+
+        collisionListener = getCollisionListener(collision.collidedWith)
         collisionListener?.onCollisionEnded(collision)
     }
 
-    private fun getCollisionListener(collision: Collision): CollisionListener? {
-        val entity = collision.entity
+    private fun getCollisionListener(entity: GameEntity): CollisionListener? {
         val collisionListener = entity.getComponent<BodyComponent>(BodyComponent::class.java)?.collisionListener
         val filter = collisionListener?.filter
-        return if (filter == null || filter.test(collision)) collisionListener else null
+        return if (filter == null || filter.test(entity)) collisionListener else null
     }
 
     private fun checkCollisionEnded(collision: Collision): Boolean {

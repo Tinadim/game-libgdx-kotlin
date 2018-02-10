@@ -88,7 +88,7 @@ class DamageSource private constructor(): GameEntity(-1) {
     }
 
     class DamageSourceCollisionListener(): CollisionListener {
-        override val filter: Filter<Collision>? = null
+        override val filter: Filter<GameEntity>? = null
 
         override fun onCollisionStarted(collision: Collision) {
             val damageSource = collision.entity as DamageSource

@@ -19,7 +19,7 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
 
     private val results: CollisionResults = CollisionResults()
     private val body: BodyComponent = entity.requireComponent(BodyComponent::class.java)
-    private val hitbox: Hitbox = body.getHitbox()
+    private val hitbox: Hitbox = body.hitbox
     private val hotspotsX = hitbox.getHotspotsToTest(Axis.X, direction.x)
     private val hotspotsY = hitbox.getHotspotsToTest(Axis.Y, direction.y)
 
@@ -43,7 +43,7 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
     }
 
     fun test(): CollisionResults {
-        if (body == null || !body.isCollidable()) {
+        if (body == null || !body.isCollidable) {
             results.distanceWalked = movement
         }
         move()
@@ -105,7 +105,7 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
             return false
         }
         val body: BodyComponent? = entityToTest.getComponent(BodyComponent::class.java)
-        if (body == null || !body.isCollidable()) {
+        if (body == null || !body.isCollidable) {
             return false
         }
 
@@ -115,7 +115,7 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
         }
 
         // TODO return entityToTest.isTrigger() ?
-        return collided
+        return collided && !body.isTrigger
     }
 
     private fun checkIntersectionBetweenEntities(entityToTest: GameEntity, hotspot: Vector2): Boolean {

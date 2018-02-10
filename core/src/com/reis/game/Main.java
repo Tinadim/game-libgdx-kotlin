@@ -20,6 +20,7 @@ import com.reis.game.input.InputHandler;
 import com.reis.game.mechanics.collision.Collision;
 import com.reis.game.mechanics.collision.CollisionListener;
 import com.reis.game.mechanics.collision.CollisionManager;
+import com.reis.game.mechanics.collision.CollisionTrigger;
 import com.reis.game.prototypes.AiData;
 import com.reis.game.util.Filter;
 
@@ -34,6 +35,7 @@ public class Main extends ApplicationAdapter {
 	public ShapeRenderer shapeRenderer;
 	public GameEntity entity = Player.INSTANCE;
 	public GameEntity entity2 = new GameEntity(2);
+	public CollisionTrigger trigger;
 
 	public static Main getInstance() {
 		return Main.instance;
@@ -57,9 +59,16 @@ public class Main extends ApplicationAdapter {
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
 		entity2.addComponent(new CombatComponent(entity2));
 
+		trigger = new CollisionTrigger(3);
+		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
+		trigger.setCoordinates(10, 10);
+
 		stage.addActor(entity);
 		stage.addActor(entity2);
+		stage.addActor(trigger);
+
 		((BodyComponent) entity2.getComponent(BodyComponent.class)).bindTiles();
+		((BodyComponent) trigger.getComponent(BodyComponent.class)).bindTiles();
 		Gdx.input.setInputProcessor(InputHandler.INSTANCE);
 	}
 
@@ -97,7 +106,7 @@ public class Main extends ApplicationAdapter {
 		return new CollisionListener() {
 			@Nullable
 			@Override
-			public Filter<Collision> getFilter() {
+			public Filter<GameEntity> getFilter() {
 				return null;
 			}
 

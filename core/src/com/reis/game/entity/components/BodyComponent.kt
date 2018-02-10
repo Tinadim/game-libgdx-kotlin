@@ -10,8 +10,9 @@ import com.reis.game.mechanics.collision.*
  */
 class BodyComponent(entity: GameEntity): EntityComponent(entity) {
 
-    private var collidable: Boolean = true
-    private val hitbox: Hitbox = Hitbox(entity.x, entity.y, entity.getTileWidth(), entity.getTileHeight())
+    var isCollidable: Boolean = true
+    var isTrigger: Boolean = false
+    val hitbox: Hitbox = Hitbox(entity.x, entity.y, entity.getTileWidth(), entity.getTileHeight())
 
     var collisionType: CollisionType = CollisionType.ACTIVE
     var collisionListener: CollisionListener? = null
@@ -49,10 +50,6 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
         return false
     }
 
-    fun isCollidable(): Boolean {
-        return this.collidable
-    }
-
     fun onPositionChanged() {
         this.hitbox.invalidateHotspots()
         this.hitbox.x = this.entity.x
@@ -65,10 +62,6 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
         this.hitbox.tileWidth = this.entity.getTileWidth()
         this.hitbox.tileHeight = this.entity.getTileHeight()
         this.bindTiles()
-    }
-
-    fun getHitbox(): Hitbox {
-        return this.hitbox
     }
 
     fun unbindTiles() {
