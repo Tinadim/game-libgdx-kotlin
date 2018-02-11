@@ -2,28 +2,27 @@ package com.reis.game.mechanics.collision
 
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
-import com.reis.game.mechanics.collision.CollisionManager.onGoingCollisions
 
 /**
  * Created by bernardoreis on 1/7/18.
  */
-object CollisionManager {
+class CollisionManager {
 
-    val onGoingCollisions: HashSet<Collision> = HashSet()
+    val activeCollisions: HashSet<Collision> = HashSet()
 
     fun registerCollisions(collisions: Collection<Collision>) {
         collisions.forEach { this.registerCollision(it) }
     }
 
     fun registerCollision(collision: Collision) {
-        val added = onGoingCollisions.add(collision)
+        val added = activeCollisions.add(collision)
         if (added) {
             notifyListenersCollisionStarted(collision)
         }
     }
 
     fun clearCollisions() {
-        onGoingCollisions.clear()
+        activeCollisions.clear()
     }
 
     private fun notifyListenersCollisionStarted(collision: Collision) {
@@ -52,9 +51,8 @@ object CollisionManager {
         return !CollisionDetector.isTouching(collision.entity, collision.collidedWith)
     }
 
-    @JvmStatic
     fun update() {
-        val iterator = onGoingCollisions.iterator()
+        val iterator = activeCollisions.iterator()
         while (iterator.hasNext()) {
             val collision = iterator.next()
             if (checkCollisionEnded(collision)) {

@@ -4,6 +4,7 @@ import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.state.events.Event
 import com.reis.game.state.events.EventEmitter
+import com.reis.game.state.events.EventType
 import com.reis.game.util.Filter
 
 /**
@@ -30,7 +31,6 @@ class CollisionTrigger(id: Int): GameEntity(id), EventEmitter {
     }
 
     fun fire() {
-        println("Firing event")
-        this.emit(Event())
+        this.emit(Event(EventType.TRIGGER_FIRED, this))
     }
 }

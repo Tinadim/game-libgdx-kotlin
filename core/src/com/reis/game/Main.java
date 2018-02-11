@@ -22,6 +22,9 @@ import com.reis.game.mechanics.collision.CollisionListener;
 import com.reis.game.mechanics.collision.CollisionManager;
 import com.reis.game.mechanics.collision.CollisionTrigger;
 import com.reis.game.prototypes.AiData;
+import com.reis.game.state.State;
+import com.reis.game.state.events.EventProcessor;
+import com.reis.game.state.quests.QuestManager;
 import com.reis.game.util.Filter;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +39,9 @@ public class Main extends ApplicationAdapter {
 	public GameEntity entity = Player.INSTANCE;
 	public GameEntity entity2 = new GameEntity(2);
 	public CollisionTrigger trigger;
+	public CollisionManager collisionManager = new CollisionManager();
+	public QuestManager questManager = new QuestManager();
+	public EventProcessor eventProcessor = new EventProcessor();
 
 	public static Main getInstance() {
 		return Main.instance;
@@ -44,6 +50,9 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Main.instance = this;
+
+		State initialState = new State();
+		questManager.loadQuests(initialState);
 
 		AiData data = new AiData();
 		shapeRenderer = new ShapeRenderer();
@@ -78,7 +87,8 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		drawGrid();
 		stage.act(Gdx.graphics.getDeltaTime());
-		CollisionManager.update();
+		collisionManager.update();
+		eventProcessor.update();
 		stage.draw();
 	}
 	
