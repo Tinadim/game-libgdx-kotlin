@@ -1,6 +1,6 @@
 package com.reis.game.entity.ai.states
 
-import com.reis.game.entity.ai.AI
+import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.StateTransition
 
 /**

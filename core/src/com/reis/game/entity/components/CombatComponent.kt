@@ -2,22 +2,42 @@ package com.reis.game.entity.components
 
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.entity.GameEntity
+import com.reis.game.entity.ai.actions.Attack
 import com.reis.game.entity.ai.actions.KnockBack
+import com.reis.game.entity.player.Player
 import com.reis.game.mechanics.battle.DamageSource
+import com.reis.game.mechanics.collision.Collision
+import com.reis.game.mechanics.collision.CollisionListener
+import com.reis.game.mechanics.collision.filters.EnemyEntityCollision
+import com.reis.game.util.Filter
 
 /**
  * Created by bernardoreis on 1/28/18.
  */
 
-class CombatComponent(entity: GameEntity): EntityComponent(entity) {
+class CombatComponent(entity: GameEntity, val team: Int): EntityComponent(entity), CollisionListener {
+    var hp: Int = 1
+    var contactDamage: Int = 1
+    var invincibleDuration: Float = 1f // seconds
+    var invincibilityCooldown: Float = 0f // seconds
+    var isInCooldown: Boolean = false
 
-    private val BLINK_DURATION = 0.15f
+    override val filter: Filter<Collision> = EnemyEntityCollision()
 
-    private var hp: Int = 1
-    private var contactDamage: Int = 1
-    private var invincibleDuration: Float = 1f // seconds
-    private var invincibilityCooldown: Float = 0f // seconds
-    private var isInCooldown: Boolean = false
+    companion object {
+        const val BLINK_DURATION = 0.15f
+    }
+
+    fun isEnemyOf(entity: GameEntity): Boolean {
+        val component = entity.getComponent<CombatComponent>(CombatComponent::class.java)
+        return component !== null && component.team != this.team
+    }
+
+    fun attack() {
+        val damageSource = Player.currentWeapon.buildDamageSource(Player)
+        val action = Attack(damageSource)
+        entity.getComponent<EntityControllerComponent>(EntityControllerComponent::class.java)?.addAction(action)
+    }
 
     fun onHitTaken(source: DamageSource, force: Vector2?) {
         if (isInCooldown) {
@@ -33,10 +53,10 @@ class CombatComponent(entity: GameEntity): EntityComponent(entity) {
 
         val action = KnockBack(force ?: Vector2.Zero,
                 invincibleDuration * 0.3f, source.knockBackDistance)
-        entity.getComponent<AiComponent>(AiComponent::class.java)?.addAction(action)
+        entity.getComponent<EntityControllerComponent>(EntityControllerComponent::class.java)?.addAction(action)
     }
 
-    fun applyTouchDamageToEntity(target: GameEntity, force: Vector2? = null) {
+    private fun applyTouchDamageToEntity(target: GameEntity, force: Vector2? = null) {
         if (contactDamage > 0) {
             val source = buildContactDamageSource(force)
             source.applyHit(target)
@@ -61,4 +81,11 @@ class CombatComponent(entity: GameEntity): EntityComponent(entity) {
             isInCooldown = false
         }
     }
+
+    override fun onCollisionStarted(collision: Collision) {
+        // TODO figure out a way to get movement direction here
+        applyTouchDamageToEntity(collision.collidedWith)
+    }
+
+    override fun onCollisionEnded(collision: Collision) {}
 }

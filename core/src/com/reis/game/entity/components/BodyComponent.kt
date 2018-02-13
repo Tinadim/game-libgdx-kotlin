@@ -16,14 +16,8 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
     val hitbox: Hitbox = Hitbox(entity.x, entity.y, entity.getTileWidth(), entity.getTileHeight())
 
     var collisionType: CollisionType = CollisionType.ACTIVE
-    var collisionListener: CollisionListener? = null
 
-    constructor(entity: GameEntity, collisionListener: CollisionListener? = null): this(entity) {
-        this.collisionListener = collisionListener
-    }
-
-    constructor(entity: GameEntity, collisionType: CollisionType = CollisionType.ACTIVE,
-                collisionListener: CollisionListener? = null): this(entity, collisionListener) {
+    constructor(entity: GameEntity, collisionType: CollisionType = CollisionType.ACTIVE): this(entity) {
         this.collisionType = collisionType
     }
 
@@ -34,7 +28,7 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
         }
     }
 
-    fun checkCollision(entity: GameEntity) {
+    private fun checkCollision(entity: GameEntity) {
         val results = CollisionDetector.checkCollision(entity)
         results.collisions?.forEach {
             // TODO change this way of obtaining collision manager

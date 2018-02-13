@@ -7,6 +7,7 @@ import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.utils.Array
 import com.reis.game.entity.GameEntity
+import java.util.*
 
 /**
  * Created by bernardoreis on 12/25/17.
@@ -27,6 +28,14 @@ class ComponentsBag {
 
     fun hasComponent(componentClass: Class<out Component>): Boolean {
         return getComponent<EntityComponent>(componentClass) != null
+    }
+
+    fun getComponents(filter: ((EntityComponent) -> Boolean)? = null): List<EntityComponent> {
+        var componentList: List<EntityComponent> = componentsArray.toList()
+        if (filter != null) {
+            componentList = componentList.filter(filter)
+        }
+        return componentList
     }
 
     fun <T : EntityComponent> getComponent(componentClass: Class<out Component>): T? {

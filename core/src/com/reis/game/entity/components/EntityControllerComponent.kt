@@ -1,37 +1,26 @@
 package com.reis.game.entity.components
 
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.AI
+import com.reis.game.entity.ai.controllers.EntityController
 import com.reis.game.entity.ai.actions.Action
 import com.reis.game.entity.ai.actions.ActionQueue
 import com.reis.game.entity.ai.actions.Idle
-import com.reis.game.prototypes.AiData
 
 /**
  * Created by bernardoreis on 12/25/17.
  */
-class AiComponent constructor(entity: GameEntity, aiData: AiData? = null) : EntityComponent(entity) {
+class EntityControllerComponent constructor(entity: GameEntity,
+    private val entityController: EntityController) : EntityComponent(entity) {
 
     private val actionProcessor: ActionQueue = ActionQueue()
-
-    /**
-     * Decoupling the StateMachineAI from the action logic. The state machine will be used
-     * to feed the action processor, and the the action priority system will decide if the
-     * current action should be replaced
-     */
-
-    private var ai: AI? = null
     private var currentAction: Action = Idle()
 
     init {
         currentAction.start(entity)
-        if (aiData != null) {
-            this.ai = AI.parse(aiData, entity)
-        }
     }
 
     override fun update(delta: Float) {
-        ai?.update(delta)
+        entityController.update(delta)
         val nextAction = actionProcessor.getNextAction()
         if (shouldReplaceCurrentAction(nextAction)) {
             replaceCurrentAction(nextAction)

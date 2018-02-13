@@ -10,7 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.reis.game.contants.GameConstants;
 import com.reis.game.entity.GameEntity;
-import com.reis.game.entity.components.AiComponent;
+import com.reis.game.entity.ai.controllers.ManualController;
+import com.reis.game.entity.components.EntityControllerComponent;
 import com.reis.game.entity.components.BodyComponent;
 import com.reis.game.entity.components.CombatComponent;
 import com.reis.game.entity.components.MovementComponent;
@@ -54,19 +55,22 @@ public class Main extends ApplicationAdapter {
 		State initialState = new State();
 		questManager.loadQuests(initialState);
 
-		AiData data = new AiData();
 		shapeRenderer = new ShapeRenderer();
 		stage = new Stage(new ScreenViewport());
-		entity.addComponent(new BodyComponent(entity, buildCollisionListener()));
-		entity.addComponent(new CombatComponent(entity));
+
+		CombatComponent playerCombatComponent = new CombatComponent(entity, 1);
+		playerCombatComponent.setContactDamage(0);
+		ManualController controller = new ManualController(entity);
+		entity.addComponent(new BodyComponent(entity));
+		entity.addComponent(playerCombatComponent);
 		entity.addComponent(new SpriteComponent(entity, Color.WHITE));
-		entity.addComponent(new AiComponent(entity, data));
+		entity.addComponent(new EntityControllerComponent(entity, controller));
 		entity.addComponent(new MovementComponent(entity));
 
 		entity2.setCoordinates(5, 5);
 		entity2.addComponent(new BodyComponent(entity2));
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
-		entity2.addComponent(new CombatComponent(entity2));
+		entity2.addComponent(new CombatComponent(entity2, 2));
 
 		trigger = new CollisionTrigger(3);
 		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
@@ -78,7 +82,7 @@ public class Main extends ApplicationAdapter {
 
 		((BodyComponent) entity2.getComponent(BodyComponent.class)).bindTiles();
 		((BodyComponent) trigger.getComponent(BodyComponent.class)).bindTiles();
-		Gdx.input.setInputProcessor(InputHandler.INSTANCE);
+		Gdx.input.setInputProcessor(new InputHandler(controller));
 	}
 
 	@Override
@@ -110,30 +114,5 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 		shapeRenderer.end();
-	}
-
-	private CollisionListener buildCollisionListener() {
-		return new CollisionListener() {
-			@Nullable
-			@Override
-			public Filter<GameEntity> getFilter() {
-				return null;
-			}
-
-			@Override
-			public void onCollisionStarted(@NotNull Collision collision) {
-				GameEntity enemy = collision.getCollidedWith();
-				MovementComponent movement = collision.getEntity().getComponent(MovementComponent.class);
-				CombatComponent component = enemy.getComponent(CombatComponent.class);
-				if (component != null) {
-					component.applyTouchDamageToEntity(collision.getEntity(), new Vector2(movement.getVelocity()).scl(-1f));
-				}
-			}
-
-			@Override
-			public void onCollisionEnded(@NotNull Collision collision) {
-				System.out.println("Collision with player ended");
-			}
-		};
 	}
 }

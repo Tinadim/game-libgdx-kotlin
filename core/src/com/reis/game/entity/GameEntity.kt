@@ -48,6 +48,10 @@ open class GameEntity(val id: Int) : Group() {
         return this.components.hasComponent(componentClass)
     }
 
+    fun getComponents(filter: ((EntityComponent) -> Boolean)? = null): List<EntityComponent> {
+        return this.components.getComponents(filter)
+    }
+
     fun <T : EntityComponent> getComponent(componentClass: Class<out Component>): T? {
         return this.components.getComponent(componentClass)
     }

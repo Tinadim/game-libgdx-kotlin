@@ -1,4 +1,4 @@
-package com.reis.game.entity.ai
+package com.reis.game.entity.ai.controllers
 
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.ai.states.State
@@ -6,6 +6,10 @@ import com.reis.game.prototypes.AiData
 
 /**
  * Created by bernardoreis on 12/25/17.
+ *
+ * Decoupling the StateMachineAI from the action logic. The state machine will be used
+ * to feed the action processor, and the the action priority system will decide if the
+ * current action should be replaced
  */
 class AI private constructor(private val entity: GameEntity, initialState: State) {
 

@@ -3,15 +3,12 @@ package com.reis.game.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.math.Vector2
-import com.reis.game.entity.ai.actions.Attack
-import com.reis.game.entity.ai.actions.Move
-import com.reis.game.entity.components.AiComponent
-import com.reis.game.entity.player.Player
+import com.reis.game.entity.ai.controllers.ManualController
 
 /**
  * Created by bernardoreis on 1/2/18.
  */
-object InputHandler: InputProcessor {
+class InputHandler(private val entityController: ManualController): InputProcessor {
 
     private val direction: Vector2 = Vector2(0f, 0f)
 
@@ -25,7 +22,7 @@ object InputHandler: InputProcessor {
         } else if (keycode == Input.Keys.DOWN) {
             return updateDirection(0f, -1f)
         } else if (keycode == Input.Keys.SPACE) {
-            return attack()
+            return executeAction()
         }
         return false
     }
@@ -69,17 +66,12 @@ object InputHandler: InputProcessor {
 
     private fun updateDirection(x: Float, y: Float): Boolean {
         this.direction.add(x, y)
-        val action = Move(this.direction.cpy())
-        val component = Player.requireComponent<AiComponent>(AiComponent::class.java)
-        component.getActionProcessor().addAction(action)
+        this.entityController.handleDirectionalInput(this.direction.cpy())
         return true
     }
 
-    private fun attack(): Boolean {
-        val damageSource = Player.currentWeapon.buildDamageSource(Player)
-        val action = Attack(damageSource)
-        val component = Player.requireComponent<AiComponent>(AiComponent::class.java)
-        component.getActionProcessor().addAction(action)
+    private fun executeAction(): Boolean {
+        this.entityController.executePrimaryAction()
         return true
     }
 }

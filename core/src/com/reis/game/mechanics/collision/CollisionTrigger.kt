@@ -1,5 +1,6 @@
 package com.reis.game.mechanics.collision
 
+import com.reis.game.Main
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.state.events.Event
@@ -19,13 +20,14 @@ class CollisionTrigger(id: Int): GameEntity(id), EventEmitter {
 
     private fun createBody(): BodyComponent {
         val listener = object: CollisionListener {
-            override val filter: Filter<GameEntity>? = null
+            override val filter: Filter<Collision>? = null
             override fun onCollisionStarted(collision: Collision) {
                 this@CollisionTrigger.fire()
             }
             override fun onCollisionEnded(collision: Collision) {}
         }
-        val body = BodyComponent(this, listener)
+        Main.getInstance().collisionManager.registerListener(this, listener)
+        val body = BodyComponent(this)
         body.isTrigger = true
         return body
     }

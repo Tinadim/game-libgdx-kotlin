@@ -2,6 +2,7 @@ package com.reis.game.mechanics.battle
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import com.reis.game.Main
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.entity.components.CombatComponent
@@ -10,6 +11,7 @@ import com.reis.game.entity.components.SpriteComponent
 import com.reis.game.mechanics.collision.Collision
 import com.reis.game.mechanics.collision.CollisionListener
 import com.reis.game.mechanics.collision.CollisionType
+import com.reis.game.mechanics.collision.filters.TriggerFilter
 import com.reis.game.util.Filter
 
 /**
@@ -87,8 +89,8 @@ class DamageSource private constructor(): GameEntity(-1) {
         }
     }
 
-    class DamageSourceCollisionListener(): CollisionListener {
-        override val filter: Filter<GameEntity>? = null
+    class DamageSourceCollisionListener: CollisionListener {
+        override val filter: Filter<Collision> = TriggerFilter()
 
         override fun onCollisionStarted(collision: Collision) {
             val damageSource = collision.entity as DamageSource
@@ -107,11 +109,16 @@ class DamageSource private constructor(): GameEntity(-1) {
 
     class Builder {
         private val source = DamageSource()
+        private var collisionListener: CollisionListener? = null
 
         fun build(): DamageSource {
-            if (source.collisionListener != null && !source.hasComponent(BodyComponent::class.java)) {
-                val component = BodyComponent(source, source.collisionType, source.collisionListener)
-                source.addComponent(component)
+            val collisionListener = this.collisionListener
+            if (collisionListener != null) {
+                if (!source.hasComponent(BodyComponent::class.java)) {
+                    val component = BodyComponent(source, source.collisionType)
+                    source.addComponent(component)
+                }
+                Main.getInstance().collisionManager.registerListener(source, collisionListener)
             }
             return source
         }
@@ -152,7 +159,7 @@ class DamageSource private constructor(): GameEntity(-1) {
         }
 
         fun collisionListener(collisionListener: CollisionListener): Builder {
-            source.collisionListener = collisionListener
+            this.collisionListener = collisionListener
             return this
         }
 

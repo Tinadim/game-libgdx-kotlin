@@ -1,6 +1,5 @@
 package com.reis.game.mechanics.collision
 
-import com.reis.game.entity.GameEntity
 import com.reis.game.util.Filter
 
 /**
@@ -8,7 +7,7 @@ import com.reis.game.util.Filter
  */
 interface CollisionListener {
 
-    val filter: Filter<GameEntity>?
+    val filter: Filter<Collision>?
 
     fun onCollisionStarted(collision: Collision)
 
