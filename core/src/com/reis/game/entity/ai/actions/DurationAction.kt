@@ -5,7 +5,7 @@ import com.reis.game.entity.GameEntity
 /**
  * Created by bernardoreis on 12/31/17.
  */
-abstract class DurationAction(priority: Int, protected val duration: Float): Action(priority) {
+abstract class DurationAction(priority: Int, protected val duration: Float): EntityAction(priority) {
 
     private var elapsedTime: Float = 0f
 
@@ -14,13 +14,12 @@ abstract class DurationAction(priority: Int, protected val duration: Float): Act
             return
         }
         this.elapsedTime += delta
-        if (this.elapsedTime > this.duration) {
+        if (this.elapsedTime >= this.duration) {
             this.finish()
         }
     }
 
-    fun reset(): DurationAction {
+    override fun restart() {
         this.elapsedTime = 0f
-        return this
     }
 }

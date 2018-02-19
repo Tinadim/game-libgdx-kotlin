@@ -7,18 +7,19 @@ import com.google.common.collect.MinMaxPriorityQueue
  */
 class ActionQueue(private val capacity: Int = 10) {
 
-    private val idle = Idle()
     private val comparator: ActionComparator = ActionComparator()
 
+    val idle = Idle()
+
     // Using capacity + 1 to prevent list from being resized when the last element is added
-    private var queue: MinMaxPriorityQueue<Action> = MinMaxPriorityQueue
+    private var queue: MinMaxPriorityQueue<EntityAction> = MinMaxPriorityQueue
         .orderedBy(comparator)
         .maximumSize(capacity + 1)
         .create()
 
     // TODO implement pooling for actions
 
-    fun addAction(action: Action) {
+    fun addAction(action: EntityAction) {
         // Let it add to the queue to be sorted according to the action priority
         queue.add(action)
         if (queue.size >= this.capacity) {
@@ -27,17 +28,17 @@ class ActionQueue(private val capacity: Int = 10) {
         }
     }
 
-    fun checkNextAction(): Action {
+    fun checkNextAction(): EntityAction {
         return queue.peek() ?: idle
     }
 
-    fun getNextAction(): Action {
+    fun getNextAction(): EntityAction {
         val action = queue.poll()
-        return action ?: idle.reset()
+        return action ?: idle
     }
 
-    class ActionComparator: Comparator<Action> {
-        override fun compare(a1: Action, a2: Action): Int {
+    class ActionComparator: Comparator<EntityAction> {
+        override fun compare(a1: EntityAction, a2: EntityAction): Int {
             return a2.getPriority() - a1.getPriority()
         }
     }

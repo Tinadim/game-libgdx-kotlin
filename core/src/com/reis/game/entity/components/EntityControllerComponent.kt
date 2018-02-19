@@ -2,7 +2,7 @@ package com.reis.game.entity.components
 
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.ai.controllers.EntityController
-import com.reis.game.entity.ai.actions.Action
+import com.reis.game.entity.ai.actions.EntityAction
 import com.reis.game.entity.ai.actions.ActionQueue
 import com.reis.game.entity.ai.actions.Idle
 
@@ -13,7 +13,7 @@ class EntityControllerComponent constructor(entity: GameEntity,
     private val entityController: EntityController) : EntityComponent(entity) {
 
     private val actionProcessor: ActionQueue = ActionQueue()
-    private var currentAction: Action = Idle()
+    private var currentAction: EntityAction = actionProcessor.idle
 
     init {
         currentAction.start(entity)
@@ -25,11 +25,12 @@ class EntityControllerComponent constructor(entity: GameEntity,
         if (shouldReplaceCurrentAction(nextAction)) {
             replaceCurrentAction(nextAction)
         }
-        currentAction.update(delta, entity)
+        // Action update already happens as part of the action update
+        // currentAction.update(delta, entity)
     }
 
-    private fun shouldReplaceCurrentAction(nextAction: Action): Boolean {
-        if (currentAction == nextAction) {
+    private fun shouldReplaceCurrentAction(nextAction: EntityAction): Boolean {
+        if (currentAction === nextAction) {
             return false
         }
 
@@ -42,7 +43,7 @@ class EntityControllerComponent constructor(entity: GameEntity,
                 isSelfReplaceable
     }
 
-    private fun replaceCurrentAction(nextAction: Action) {
+    private fun replaceCurrentAction(nextAction: EntityAction) {
         if (!currentAction.isFinished()) {
             currentAction.stop(entity)
         }
@@ -50,11 +51,15 @@ class EntityControllerComponent constructor(entity: GameEntity,
         currentAction.start(entity)
     }
 
-    fun addAction(action: Action) {
+    fun addAction(action: EntityAction) {
         actionProcessor.addAction(action)
     }
 
     fun getActionProcessor(): ActionQueue {
         return actionProcessor
+    }
+
+    fun getCurrentAction(): EntityAction {
+        return currentAction
     }
 }

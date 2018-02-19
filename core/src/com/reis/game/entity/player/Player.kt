@@ -10,6 +10,4 @@ import com.reis.game.mechanics.battle.weapons.Sword
  */
 object Player: GameEntity(GameConstants.PLAYER_ID) {
 
-    val currentWeapon = Bow()
-
 }

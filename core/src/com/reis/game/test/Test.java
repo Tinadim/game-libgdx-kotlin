@@ -1,6 +1,6 @@
 package com.reis.game.test;
 
-import com.reis.game.entity.ai.actions.Action;
+import com.reis.game.entity.ai.actions.EntityAction;
 import com.reis.game.entity.ai.actions.ActionQueue;
 import com.reis.game.entity.ai.actions.Idle;
 
@@ -18,14 +18,14 @@ public class Test {
         for (int i = 0; i < 3; i++) {
             int priority = random.nextInt(20);
             System.out.println("Adding action with priority " + priority);
-            Action action = new Action(priority);
+            EntityAction action = new EntityAction(priority);
             queue.addAction(action);
         }
-        Action action = null;
+        EntityAction action = null;
         System.out.println("Final order:");
         while (!(action instanceof Idle)) {
             action = queue.getNextAction();
-            System.out.println("Action priority " + action.getPriority());
+            System.out.println("EntityAction priority " + action.getPriority());
         }
     }
 }

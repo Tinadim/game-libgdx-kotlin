@@ -10,6 +10,9 @@ class AttackHandler(entity: GameEntity): ActionHandler(entity) {
 
     override fun handle() {
         val component = entity.getComponent<CombatComponent>(CombatComponent::class.java)
-        component?.attack()
+        val damageSource = component?.getPrimaryDamageSource()
+        if (damageSource != null) {
+            component.attack(damageSource)
+        }
     }
 }

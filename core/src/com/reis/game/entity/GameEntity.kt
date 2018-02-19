@@ -2,11 +2,14 @@ package com.reis.game.entity
 
 import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.reis.game.contants.GameConstants
+import com.reis.game.entity.ai.actions.EntityAction
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.entity.components.ComponentsBag
 import com.reis.game.entity.components.EntityComponent
+import com.reis.game.entity.components.EntityControllerComponent
 import com.reis.game.util.MapUtils
 
 /**
@@ -42,6 +45,15 @@ open class GameEntity(val id: Int) : Group() {
     override fun remove(): Boolean {
         this.getComponent<BodyComponent>(BodyComponent::class.java)?.unbindTiles()
         return super.remove()
+    }
+
+    fun addAction(action: EntityAction) {
+        val component = this.getComponent<EntityControllerComponent>(EntityControllerComponent::class.java)
+        component?.addAction(action) ?: action.start(this)
+    }
+
+    fun registerAction(action: Action) {
+        super.addAction(action)
     }
 
     fun hasComponent(componentClass: Class<out Component>): Boolean {
@@ -99,7 +111,7 @@ open class GameEntity(val id: Int) : Group() {
         return this
     }
 
-    private fun calcPosition(col: Int, row: Int) {
+    private fun calcPosition(row: Int, col: Int) {
         this.setPosition((col * GameConstants.TILE_SIZE).toFloat(),
                 (row * GameConstants.TILE_SIZE).toFloat())
     }
@@ -142,7 +154,9 @@ open class GameEntity(val id: Int) : Group() {
     }
 
     override fun moveBy(x: Float, y: Float) {
-        getComponent<BodyComponent>(BodyComponent::class.java)?.unbindTiles()
+        if (x != 0f && y != 0f) {
+            getComponent<BodyComponent>(BodyComponent::class.java)?.unbindTiles()
+        }
         super.moveBy(x, y)
     }
 

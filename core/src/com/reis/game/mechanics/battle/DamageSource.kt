@@ -19,10 +19,10 @@ import com.reis.game.util.Filter
  */
 class DamageSource private constructor(): GameEntity(-1) {
 
-    var baseDamage: Int = 1
+    var baseDamage: Int = 0
     var hitCount: Int = 0
-    var maxHits: Int = -1
-    var knockBackDistance: Int = 5
+    var maxHits: Int = 0
+    var knockBackDistance: Int = 0
     var duration: Float = -1f
     var actionDuration: Float = 0f
     var force: Vector2? = null
@@ -73,23 +73,40 @@ class DamageSource private constructor(): GameEntity(-1) {
         }
     }
 
-
     fun applyHit(target: GameEntity) {
         val combatComponent = target.getComponent<CombatComponent>(CombatComponent::class.java)
         combatComponent?.onHitTaken(this, this.force)
+    }
+
+    fun clone(): DamageSource {
+        val source = DamageSource
+                .baseDamage(baseDamage)
+                .maxHits(maxHits)
+                .knockBackDistance(knockBackDistance)
+                .duration(duration)
+                .actionDuration(actionDuration)
+                .collisionType(collisionType)
+        if (force != null) {
+            source.force(force!!)
+        }
+        if (collisionListener != null) {
+            source.collisionListener(collisionListener!!)
+        }
+        return source.build()
     }
 
     override fun act(delta: Float) {
         super.act(delta)
         if (this.duration > 0) {
             this.elapsedTime += delta
-            if (elapsedTime > duration) {
+            if (elapsedTime >= duration) {
                 this.remove()
             }
         }
     }
 
     class DamageSourceCollisionListener: CollisionListener {
+        // TODO filter friendly entities
         override val filter: Filter<Collision> = TriggerFilter()
 
         override fun onCollisionStarted(collision: Collision) {
