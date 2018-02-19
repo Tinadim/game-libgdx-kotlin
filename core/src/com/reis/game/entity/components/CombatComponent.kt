@@ -38,13 +38,13 @@ class CombatComponent(entity: GameEntity, private val team: Int): EntityComponen
         return component !== null && component.team != this.team
     }
 
-    fun attack(damageSource: DamageSource) {
-        val action = Attack(damageSource)
+    fun attack(factory: DamageSourceFactory) {
+        val action = Attack(factory)
         entity.addAction(action)
     }
 
-    fun getPrimaryDamageSource(): DamageSource? {
-        return primaryDamageSourceFactory?.buildDamageSource(entity)
+    fun getPrimaryDamageSource(): DamageSourceFactory {
+        return primaryDamageSourceFactory!!
     }
 
     fun setPrimaryDamageSource(damageSourceFactory: DamageSourceFactory) {

@@ -1,6 +1,5 @@
 package com.reis.game.mechanics.battle.weapons
 
-import com.badlogic.gdx.Game
 import com.reis.game.contants.GameConstants
 import com.reis.game.contants.GameConstants.TILE_SIZE
 import com.reis.game.entity.GameEntity
@@ -11,6 +10,10 @@ import com.reis.game.mechanics.collision.CollisionType
  * Created by bernardoreis on 2/4/18.
  */
 class Sword: Weapon() {
+
+    init {
+        attackSpeed = 0.5f
+    }
 
     override fun buildDamageSource(attacker: GameEntity): DamageSource {
         val damageSource = DamageSource

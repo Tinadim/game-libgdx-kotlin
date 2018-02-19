@@ -8,5 +8,5 @@ import com.reis.game.mechanics.battle.DamageSourceFactory
 abstract class Weapon: DamageSourceFactory {
 
     var baseDamage: Int = 1
-    var attackSpeed: Float = 2f
+    var attackSpeed: Float = 1f
 }

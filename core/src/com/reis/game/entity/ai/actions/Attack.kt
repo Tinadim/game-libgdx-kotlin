@@ -3,13 +3,13 @@ package com.reis.game.entity.ai.actions
 import com.reis.game.Main
 import com.reis.game.contants.ActionConstants
 import com.reis.game.entity.GameEntity
-import com.reis.game.mechanics.battle.DamageSource
+import com.reis.game.mechanics.battle.DamageSourceFactory
 
 /**
  * Created by bernardoreis on 2/4/18.
  */
-class Attack(private val damageSource: DamageSource):
-        DurationAction(ActionConstants.ATTACK_PRIORITY, damageSource.actionDuration) {
+class Attack(private val damageSourceFactory: DamageSourceFactory):
+        DurationAction(ActionConstants.ATTACK_PRIORITY, -1f) {
 
     init {
         this.selfReplaceable = false
@@ -17,6 +17,9 @@ class Attack(private val damageSource: DamageSource):
 
     override fun onStart(entity: GameEntity) {
         super.onStart(entity)
-        Main.getInstance().stage.addActor(this.damageSource)
+        val damageSource = damageSourceFactory.buildDamageSource(entity)
+        // TODO this feels hacky
+        this.duration = damageSource.actionDuration
+        Main.getInstance().stage.addActor(damageSourceFactory.buildDamageSource(entity))
     }
 }
