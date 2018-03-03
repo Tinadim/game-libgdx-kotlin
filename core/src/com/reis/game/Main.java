@@ -21,6 +21,7 @@ import com.reis.game.entity.player.Player;
 import com.reis.game.input.InputHandler;
 import com.reis.game.mechanics.battle.weapons.Bow;
 import com.reis.game.mechanics.battle.weapons.Sword;
+import com.reis.game.mechanics.battle.weapons.TestWeapon;
 import com.reis.game.mechanics.collision.Collision;
 import com.reis.game.mechanics.collision.CollisionListener;
 import com.reis.game.mechanics.collision.CollisionManager;
@@ -71,7 +72,7 @@ public class Main extends ApplicationAdapter {
 
 		CombatComponent playerCombatComponent = new CombatComponent(entity, 1);
 		playerCombatComponent.setContactDamage(0);
-		playerCombatComponent.setPrimaryDamageSource(new Sword());
+		playerCombatComponent.setPrimaryDamageSource(new TestWeapon());
 		ManualController controller = new ManualController(entity);
 		entity.addComponent(new BodyComponent(entity));
 		entity.addComponent(playerCombatComponent);
@@ -85,7 +86,7 @@ public class Main extends ApplicationAdapter {
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
 		entity2.addComponent(new CombatComponent(entity2, 2));
 
-		entity3.setCoordinates(10, 5);
+		entity3.setCoordinates(0, 1);
 		entity3.addComponent(new BodyComponent(entity3));
 		entity3.addComponent(new InteractionComponent(entity3));
 		entity3.addComponent(new SpriteComponent(entity3, Color.MAGENTA));

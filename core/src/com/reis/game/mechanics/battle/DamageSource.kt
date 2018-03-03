@@ -129,7 +129,7 @@ class DamageSource private constructor(): GameEntity(-1) {
         private var collisionListener: CollisionListener? = null
 
         fun build(): DamageSource {
-            val collisionListener = this.collisionListener
+            val collisionListener = source.collisionListener
             if (collisionListener != null) {
                 if (!source.hasComponent(BodyComponent::class.java)) {
                     val component = BodyComponent(source, source.collisionType)
@@ -176,7 +176,7 @@ class DamageSource private constructor(): GameEntity(-1) {
         }
 
         fun collisionListener(collisionListener: CollisionListener): Builder {
-            this.collisionListener = collisionListener
+            source.collisionListener = collisionListener
             return this
         }
 

@@ -56,11 +56,22 @@ class Movement(private var velocity: Vector2): EntityAction(ActionConstants.MOVE
 
     private fun calcDistanceToWalk(delta: Float, entity: GameEntity): Vector2 {
         var distanceToWalk = this.velocity.cpy().scl(delta)
+        if (distanceToWalk.x != 0f) {
+            distanceToWalk.x = Math.signum(distanceToWalk.x) *
+                    Math.max(1f, Math.round(Math.abs(distanceToWalk.x)).toFloat())
+        }
+        if (distanceToWalk.y != 0f) {
+            distanceToWalk.y = Math.signum(distanceToWalk.y) *
+                    Math.max(1f, Math.round(Math.abs(distanceToWalk.y)).toFloat())
+        }
+
+        println("Distance to walk x: " + distanceToWalk.x)
         val body = entity.getComponent<BodyComponent>(BodyComponent::class.java)
         if (body != null) {
             val collisionResults = body.checkCollision(distanceToWalk)
             distanceToWalk = collisionResults.distanceWalked
         }
+
         return distanceToWalk
     }
 
