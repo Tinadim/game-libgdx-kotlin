@@ -53,23 +53,21 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
     private fun move() {
         while (distanceWalked.x < distanceToWalk.x || distanceWalked.y < distanceToWalk.y) {
             if (distanceWalked.x < distanceToWalk.x) {
-                var inc = 1f
-                val intersection = testCollisionForAxis(Axis.X, direction.x, distanceWalked.x, inc)
-                inc -= intersection?.width?.toFloat() ?: 0f
-                distanceWalked.x += inc
-
-                if (intersection != null && !intersection.isEmpty) {
+                val inc = 1f
+                val collided = testCollisionForAxis(Axis.X, direction.x, distanceWalked.x, inc)
+                if (collided) {
                     distanceToWalk.x = distanceWalked.x
+                } else {
+                    distanceWalked.x += inc
                 }
             }
             if (distanceWalked.y < distanceToWalk.y) {
-                var inc = 1f
-                val intersection = testCollisionForAxis(Axis.Y, direction.y, distanceWalked.y, inc)
-                inc -= intersection?.height?.toFloat() ?: 0f
-                distanceWalked.y += inc
-
-                if (intersection != null && !intersection.isEmpty) {
+                val inc = 1f
+                val collided = testCollisionForAxis(Axis.Y, direction.y, distanceWalked.y, inc)
+                if (collided) {
                     distanceToWalk.y = distanceWalked.y
+                } else {
+                    distanceWalked.y += inc
                 }
             }
         }
@@ -78,11 +76,11 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
     }
 
     private fun testCollisionForAxis(axis: Axis, direction: Float,
-            distanceWalked: Float, inc: Float): Rectangle2D? {
+            distanceWalked: Float, inc: Float): Boolean {
         val hotspots = if (axis == Axis.X) hotspotsX else hotspotsY
         val offset = getOffset(axis, direction, distanceWalked, inc)
         val entitiesToTest = getEntitiesToTest(hotspots, offset)
-        return getBiggestIntersection(entitiesToTest, offset, axis)
+        return testCollisionWithEntities(entitiesToTest, offset, axis)
     }
 
     private fun getOffset(axis: Axis, direction: Float, distanceWalked: Float,
@@ -110,46 +108,30 @@ class CollisionDetector constructor(private val entity: GameEntity, private val 
         }
     }
 
-    private fun getBiggestIntersection(entities: Collection<GameEntity>, offset: Vector2,
-            axis: Axis): Rectangle2D? {
-        var biggestIntersection: Rectangle2D? = null
-        entities.forEach {
-            testCollisionWithEntity(it, offset)
-//            if (intersection != null && !intersection.isEmpty) {
-//                if (axis === com.reis.game.util.Axis.X) {
-//                    val dimension = intersection.width
-//                    val currWidth = biggestIntersection?.width
-//                    if (currWidth == null || currWidth > dimension) {
-//                        biggestIntersection = intersection
-//                    }
-//                } else {
-//                    val dimension = intersection.height
-//                    val currWidth = biggestIntersection?.height
-//                    if (currWidth == null || currWidth > dimension) {
-//                        biggestIntersection = intersection
-//                    }
-//                }
-//            }
-        }
-        return biggestIntersection
+    private fun testCollisionWithEntities(entities: Collection<GameEntity>, offset: Vector2,
+            axis: Axis): Boolean {
+        return entities.fold(false, {
+            collided, entity ->
+            collided || testCollisionWithEntity(entity, offset)
+        })
     }
 
-    private fun testCollisionWithEntity(entityToTest: GameEntity, offset: Vector2): Rectangle2D? {
+    private fun testCollisionWithEntity(entityToTest: GameEntity, offset: Vector2): Boolean {
         if (entityToTest == this.entity || body.shouldIgnore(entityToTest)) {
-            return null
+            return false
         }
         val body: BodyComponent? = entityToTest.getComponent(BodyComponent::class.java)
         if (body == null || !body.isCollidable) {
-            return null
+            return false
         }
 
         val intersection = checkIntersectionBetweenEntities(entityToTest, offset)
         if (!intersection.isEmpty) {
             this.results.addCollision(Collision(entity, entityToTest, intersection))
-            return if (body.isTrigger) null else intersection
+            return !body.isTrigger
         }
 
-        return null
+        return false
     }
 
     private fun checkIntersectionBetweenEntities(entityToTest: GameEntity, offset: Vector2): Rectangle2D {
