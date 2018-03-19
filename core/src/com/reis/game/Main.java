@@ -18,6 +18,8 @@ import com.reis.game.entity.components.InteractionComponent;
 import com.reis.game.entity.components.MovementComponent;
 import com.reis.game.entity.components.SpriteComponent;
 import com.reis.game.entity.player.Player;
+import com.reis.game.graphics.AnimationManager;
+import com.reis.game.graphics.TextureManager;
 import com.reis.game.input.InputHandler;
 import com.reis.game.mechanics.battle.weapons.Bow;
 import com.reis.game.mechanics.battle.weapons.Sword;
@@ -53,6 +55,10 @@ public class Main extends ApplicationAdapter {
 	public QuestManager questManager = new QuestManager();
 	public DialogManager dialogManager = new DialogManager();
 	public EventProcessor eventProcessor = new EventProcessor();
+	public AnimationManager animationManager = new AnimationManager();
+	public TextureManager textureManager = new TextureManager();
+
+	public com.reis.game.event.EventProcessor newEventProcessor = new com.reis.game.event.EventProcessor();
 
 	public static Main getInstance() {
 		return Main.instance;

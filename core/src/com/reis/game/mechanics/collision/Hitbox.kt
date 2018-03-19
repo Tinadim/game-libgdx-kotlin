@@ -100,18 +100,18 @@ class Hitbox(var x: Float, var y: Float,
 
     fun draw(batch: Batch, parentAlpha: Float) {
         val hotspots = getHotspots()
+        batch.end()
+        Gdx.gl.glEnable(GL20.GL_BLEND)
+        shapeRenderer.setProjectionMatrix(batch.projectionMatrix)
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+        shapeRenderer.setColor(1f, 0f, 0f, 0.5f)
         hotspots.forEach {
             val tile = MapUtils.getTileForPosition(it)
-            batch.end()
-            Gdx.gl.glEnable(GL20.GL_BLEND)
-            shapeRenderer.setProjectionMatrix(batch.projectionMatrix)
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
-            shapeRenderer.setColor(1f, 0f, 0f, 0.5f)
             shapeRenderer.rect(tile.x * GameConstants.TILE_SIZE, tile.y * GameConstants.TILE_SIZE,
                     GameConstants.TILE_SIZE.toFloat(), GameConstants.TILE_SIZE.toFloat())
-            shapeRenderer.end()
-            Gdx.gl.glDisable(GL20.GL_BLEND)
-            batch.begin()
         }
+        shapeRenderer.end()
+        Gdx.gl.glDisable(GL20.GL_BLEND)
+        batch.begin()
     }
 }

@@ -3,11 +3,14 @@ package com.reis.game.entity.ai.actions
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.reis.game.entity.GameEntity
+import com.reis.game.event.Event
+import com.reis.game.event.EventEmitter
+import com.reis.game.event.EventType
 
 /**
  * Created by bernardoreis on 12/19/17.
  */
-open class EntityAction constructor(private val priority: Int): Action() {
+open class EntityAction constructor(private val priority: Int): Action(), EventEmitter {
 
     private var finished: Boolean = false
     private var interrupted: Boolean = false
@@ -32,6 +35,7 @@ open class EntityAction constructor(private val priority: Int): Action() {
             // TODO this feels hacky
             entity.registerAction(this)
             onStart(entity)
+            emit(Event(EventType.ACTION_STARTED, this, entity))
         }
     }
 
@@ -48,7 +52,7 @@ open class EntityAction constructor(private val priority: Int): Action() {
         }
         onUpdate(delta, entity)
         if (finished && !interrupted) {
-            this.onComplete(entity)
+            complete(entity)
         }
     }
 
@@ -56,6 +60,12 @@ open class EntityAction constructor(private val priority: Int): Action() {
         interrupted = true
         finish()
         onStop(entity)
+        emit(Event(EventType.ACTION_STOPPED, this, entity))
+    }
+
+    fun complete(entity: GameEntity) {
+        onComplete(entity)
+        emit(Event(EventType.ACTION_COMPLETED, this, entity))
     }
 
     open fun onStart(entity: GameEntity) {}

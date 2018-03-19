@@ -1,0 +1,21 @@
+syntax = "proto3";
+option java_package="com.reis.game.prototype";
+option java_outer_classname="SpriteProto";
+
+message SpriteData {
+  int32 x = 1;
+  int32 y = 2;
+  int32 textureX = 3;
+  int32 textureY = 4;
+  int32 width = 5;
+  int32 height = 6;
+  int32 anchorX = 7;
+  int32 anchorY = 8;
+}
+
+message SpriteArrayData {
+  int32 textureX = 1;
+  int32 textureY = 2;
+  int32 numSprites = 3;
+  SpriteData spriteData = 4;
+}

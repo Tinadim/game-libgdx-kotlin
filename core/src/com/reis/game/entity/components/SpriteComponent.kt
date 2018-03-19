@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.reis.game.entity.GameEntity
+import com.reis.game.graphics.AtlasRegionWithOffset
 
 /**
  * Created by bernardoreis on 1/2/18.
@@ -15,8 +16,14 @@ class SpriteComponent(entity: GameEntity, private val color: Color): EntityCompo
 
     private val shapeRenderer: ShapeRenderer = ShapeRenderer()
 
+    var texture: AtlasRegionWithOffset? = null
+
     override fun draw(batch: Batch, parentAlpha: Float) {
         drawShape(batch, parentAlpha)
+        val texture = this.texture
+        if (texture != null) {
+            batch.draw(texture, entity.x + texture.drawOffset.x, entity.y + texture.drawOffset.y)
+        }
     }
 
     private fun drawShape(batch: Batch, parentAlpha: Float) {
