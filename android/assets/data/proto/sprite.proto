@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package="com.reis.game.prototype";
+option java_package="com.reis.game.prototypes";
 option java_outer_classname="SpriteProto";
 
 message SpriteData {

@@ -22,7 +22,7 @@ class SpriteComponent(entity: GameEntity, private val color: Color): EntityCompo
         drawShape(batch, parentAlpha)
         val texture = this.texture
         if (texture != null) {
-            batch.draw(texture, entity.x + texture.drawOffset.x, entity.y + texture.drawOffset.y)
+            batch.draw(texture, entity.x + texture.drawOffsetX, entity.y + texture.drawOffsetY)
         }
     }
 

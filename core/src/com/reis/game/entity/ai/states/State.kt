@@ -6,7 +6,7 @@ import com.reis.game.entity.ai.transitions.StateTransition
 /**
  * Created by bernardoreis on 12/19/17.
  */
-open class State constructor() {
+open class State {
 
     private var transitions: ArrayList<StateTransition>? = null
 

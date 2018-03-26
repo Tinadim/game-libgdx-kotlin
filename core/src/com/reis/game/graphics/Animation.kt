@@ -1,11 +1,9 @@
 package com.reis.game.graphics
 
-import com.badlogic.gdx.utils.Array
-
 /**
  * Created by berna on 18-Mar-18.
  */
-class Animation constructor(private val keyFrames: Array<out AnimationFrame>) {
+class Animation constructor(private val keyFrames: List<out AnimationFrame>) {
 
     private var currentIndex: Int = 0
     private var elapsedTime: Float = 0f

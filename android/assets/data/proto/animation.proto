@@ -2,8 +2,6 @@ syntax = "proto3";
 option java_package="com.reis.game.prototypes";
 option java_outer_classname="AnimationProto";
 
-import "sprite.proto";
-
 message AnimationData {
   repeated AnimationPrototype animationPrototype = 1;
 }
@@ -13,5 +11,15 @@ message AnimationPrototype {
   string animationName = 2;
   string actionClassName = 3;
   int32 entityOrientation = 4;
-  repeated float frameDuration = 5;
+  float frameDuration = 5;
+  float frameOffsetX = 6;
+  float frameOffsetY = 7;
+  repeated AnimationFrame frames = 8;
+}
+
+message AnimationFrame {
+  int32 index = 1;
+  float frameOffsetX = 2;
+  float frameOffsetY = 3;
+  float frameDuration = 4;
 }

@@ -811,17 +811,43 @@ public final class AnimationProto {
     int getEntityOrientation();
 
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>float frameDuration = 5;</code>
      */
-    java.util.List<java.lang.Float> getFrameDurationList();
+    float getFrameDuration();
+
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>float frameOffsetX = 6;</code>
      */
-    int getFrameDurationCount();
+    float getFrameOffsetX();
+
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>float frameOffsetY = 7;</code>
      */
-    float getFrameDuration(int index);
+    float getFrameOffsetY();
+
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame> 
+        getFramesList();
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    com.reis.game.prototypes.AnimationProto.AnimationFrame getFrames(int index);
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    int getFramesCount();
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    java.util.List<? extends com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder> 
+        getFramesOrBuilderList();
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder getFramesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code AnimationPrototype}
@@ -840,7 +866,10 @@ public final class AnimationProto {
       animationName_ = "";
       actionClassName_ = "";
       entityOrientation_ = 0;
-      frameDuration_ = java.util.Collections.emptyList();
+      frameDuration_ = 0F;
+      frameOffsetX_ = 0F;
+      frameOffsetY_ = 0F;
+      frames_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -898,24 +927,27 @@ public final class AnimationProto {
               break;
             }
             case 45: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-                frameDuration_ = new java.util.ArrayList<java.lang.Float>();
-                mutable_bitField0_ |= 0x00000010;
-              }
-              frameDuration_.add(input.readFloat());
+
+              frameDuration_ = input.readFloat();
               break;
             }
-            case 42: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010) && input.getBytesUntilLimit() > 0) {
-                frameDuration_ = new java.util.ArrayList<java.lang.Float>();
-                mutable_bitField0_ |= 0x00000010;
+            case 53: {
+
+              frameOffsetX_ = input.readFloat();
+              break;
+            }
+            case 61: {
+
+              frameOffsetY_ = input.readFloat();
+              break;
+            }
+            case 66: {
+              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+                frames_ = new java.util.ArrayList<com.reis.game.prototypes.AnimationProto.AnimationFrame>();
+                mutable_bitField0_ |= 0x00000080;
               }
-              while (input.getBytesUntilLimit() > 0) {
-                frameDuration_.add(input.readFloat());
-              }
-              input.popLimit(limit);
+              frames_.add(
+                  input.readMessage(com.reis.game.prototypes.AnimationProto.AnimationFrame.parser(), extensionRegistry));
               break;
             }
           }
@@ -926,8 +958,8 @@ public final class AnimationProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-          frameDuration_ = java.util.Collections.unmodifiableList(frameDuration_);
+        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+          frames_ = java.util.Collections.unmodifiableList(frames_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1058,27 +1090,66 @@ public final class AnimationProto {
     }
 
     public static final int FRAMEDURATION_FIELD_NUMBER = 5;
-    private java.util.List<java.lang.Float> frameDuration_;
+    private float frameDuration_;
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>float frameDuration = 5;</code>
      */
-    public java.util.List<java.lang.Float>
-        getFrameDurationList() {
+    public float getFrameDuration() {
       return frameDuration_;
     }
+
+    public static final int FRAMEOFFSETX_FIELD_NUMBER = 6;
+    private float frameOffsetX_;
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>float frameOffsetX = 6;</code>
      */
-    public int getFrameDurationCount() {
-      return frameDuration_.size();
+    public float getFrameOffsetX() {
+      return frameOffsetX_;
+    }
+
+    public static final int FRAMEOFFSETY_FIELD_NUMBER = 7;
+    private float frameOffsetY_;
+    /**
+     * <code>float frameOffsetY = 7;</code>
+     */
+    public float getFrameOffsetY() {
+      return frameOffsetY_;
+    }
+
+    public static final int FRAMES_FIELD_NUMBER = 8;
+    private java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame> frames_;
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    public java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame> getFramesList() {
+      return frames_;
     }
     /**
-     * <code>repeated float frameDuration = 5;</code>
+     * <code>repeated .AnimationFrame frames = 8;</code>
      */
-    public float getFrameDuration(int index) {
-      return frameDuration_.get(index);
+    public java.util.List<? extends com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder> 
+        getFramesOrBuilderList() {
+      return frames_;
     }
-    private int frameDurationMemoizedSerializedSize = -1;
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    public int getFramesCount() {
+      return frames_.size();
+    }
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    public com.reis.game.prototypes.AnimationProto.AnimationFrame getFrames(int index) {
+      return frames_.get(index);
+    }
+    /**
+     * <code>repeated .AnimationFrame frames = 8;</code>
+     */
+    public com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder getFramesOrBuilder(
+        int index) {
+      return frames_.get(index);
+    }
 
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1092,7 +1163,6 @@ public final class AnimationProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (!getAtlasNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, atlasName_);
       }
@@ -1105,12 +1175,17 @@ public final class AnimationProto {
       if (entityOrientation_ != 0) {
         output.writeInt32(4, entityOrientation_);
       }
-      if (getFrameDurationList().size() > 0) {
-        output.writeUInt32NoTag(42);
-        output.writeUInt32NoTag(frameDurationMemoizedSerializedSize);
+      if (frameDuration_ != 0F) {
+        output.writeFloat(5, frameDuration_);
       }
-      for (int i = 0; i < frameDuration_.size(); i++) {
-        output.writeFloatNoTag(frameDuration_.get(i));
+      if (frameOffsetX_ != 0F) {
+        output.writeFloat(6, frameOffsetX_);
+      }
+      if (frameOffsetY_ != 0F) {
+        output.writeFloat(7, frameOffsetY_);
+      }
+      for (int i = 0; i < frames_.size(); i++) {
+        output.writeMessage(8, frames_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -1133,16 +1208,21 @@ public final class AnimationProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, entityOrientation_);
       }
-      {
-        int dataSize = 0;
-        dataSize = 4 * getFrameDurationList().size();
-        size += dataSize;
-        if (!getFrameDurationList().isEmpty()) {
-          size += 1;
-          size += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(dataSize);
-        }
-        frameDurationMemoizedSerializedSize = dataSize;
+      if (frameDuration_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, frameDuration_);
+      }
+      if (frameOffsetX_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, frameOffsetX_);
+      }
+      if (frameOffsetY_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(7, frameOffsetY_);
+      }
+      for (int i = 0; i < frames_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, frames_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1168,8 +1248,20 @@ public final class AnimationProto {
           .equals(other.getActionClassName());
       result = result && (getEntityOrientation()
           == other.getEntityOrientation());
-      result = result && getFrameDurationList()
-          .equals(other.getFrameDurationList());
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameDuration())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameDuration()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameOffsetX())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameOffsetX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameOffsetY())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameOffsetY()));
+      result = result && getFramesList()
+          .equals(other.getFramesList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1189,9 +1281,18 @@ public final class AnimationProto {
       hash = (53 * hash) + getActionClassName().hashCode();
       hash = (37 * hash) + ENTITYORIENTATION_FIELD_NUMBER;
       hash = (53 * hash) + getEntityOrientation();
-      if (getFrameDurationCount() > 0) {
-        hash = (37 * hash) + FRAMEDURATION_FIELD_NUMBER;
-        hash = (53 * hash) + getFrameDurationList().hashCode();
+      hash = (37 * hash) + FRAMEDURATION_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameDuration());
+      hash = (37 * hash) + FRAMEOFFSETX_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameOffsetX());
+      hash = (37 * hash) + FRAMEOFFSETY_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameOffsetY());
+      if (getFramesCount() > 0) {
+        hash = (37 * hash) + FRAMES_FIELD_NUMBER;
+        hash = (53 * hash) + getFramesList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1318,6 +1419,7 @@ public final class AnimationProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getFramesFieldBuilder();
         }
       }
       public Builder clear() {
@@ -1330,8 +1432,18 @@ public final class AnimationProto {
 
         entityOrientation_ = 0;
 
-        frameDuration_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        frameDuration_ = 0F;
+
+        frameOffsetX_ = 0F;
+
+        frameOffsetY_ = 0F;
+
+        if (framesBuilder_ == null) {
+          frames_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
+        } else {
+          framesBuilder_.clear();
+        }
         return this;
       }
 
@@ -1360,11 +1472,18 @@ public final class AnimationProto {
         result.animationName_ = animationName_;
         result.actionClassName_ = actionClassName_;
         result.entityOrientation_ = entityOrientation_;
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          frameDuration_ = java.util.Collections.unmodifiableList(frameDuration_);
-          bitField0_ = (bitField0_ & ~0x00000010);
-        }
         result.frameDuration_ = frameDuration_;
+        result.frameOffsetX_ = frameOffsetX_;
+        result.frameOffsetY_ = frameOffsetY_;
+        if (framesBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+            frames_ = java.util.Collections.unmodifiableList(frames_);
+            bitField0_ = (bitField0_ & ~0x00000080);
+          }
+          result.frames_ = frames_;
+        } else {
+          result.frames_ = framesBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1422,15 +1541,40 @@ public final class AnimationProto {
         if (other.getEntityOrientation() != 0) {
           setEntityOrientation(other.getEntityOrientation());
         }
-        if (!other.frameDuration_.isEmpty()) {
-          if (frameDuration_.isEmpty()) {
-            frameDuration_ = other.frameDuration_;
-            bitField0_ = (bitField0_ & ~0x00000010);
-          } else {
-            ensureFrameDurationIsMutable();
-            frameDuration_.addAll(other.frameDuration_);
+        if (other.getFrameDuration() != 0F) {
+          setFrameDuration(other.getFrameDuration());
+        }
+        if (other.getFrameOffsetX() != 0F) {
+          setFrameOffsetX(other.getFrameOffsetX());
+        }
+        if (other.getFrameOffsetY() != 0F) {
+          setFrameOffsetY(other.getFrameOffsetY());
+        }
+        if (framesBuilder_ == null) {
+          if (!other.frames_.isEmpty()) {
+            if (frames_.isEmpty()) {
+              frames_ = other.frames_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+            } else {
+              ensureFramesIsMutable();
+              frames_.addAll(other.frames_);
+            }
+            onChanged();
           }
-          onChanged();
+        } else {
+          if (!other.frames_.isEmpty()) {
+            if (framesBuilder_.isEmpty()) {
+              framesBuilder_.dispose();
+              framesBuilder_ = null;
+              frames_ = other.frames_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+              framesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getFramesFieldBuilder() : null;
+            } else {
+              framesBuilder_.addAllMessages(other.frames_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1693,70 +1837,322 @@ public final class AnimationProto {
         return this;
       }
 
-      private java.util.List<java.lang.Float> frameDuration_ = java.util.Collections.emptyList();
-      private void ensureFrameDurationIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
-          frameDuration_ = new java.util.ArrayList<java.lang.Float>(frameDuration_);
-          bitField0_ |= 0x00000010;
-         }
+      private float frameDuration_ ;
+      /**
+       * <code>float frameDuration = 5;</code>
+       */
+      public float getFrameDuration() {
+        return frameDuration_;
       }
       /**
-       * <code>repeated float frameDuration = 5;</code>
+       * <code>float frameDuration = 5;</code>
        */
-      public java.util.List<java.lang.Float>
-          getFrameDurationList() {
-        return java.util.Collections.unmodifiableList(frameDuration_);
-      }
-      /**
-       * <code>repeated float frameDuration = 5;</code>
-       */
-      public int getFrameDurationCount() {
-        return frameDuration_.size();
-      }
-      /**
-       * <code>repeated float frameDuration = 5;</code>
-       */
-      public float getFrameDuration(int index) {
-        return frameDuration_.get(index);
-      }
-      /**
-       * <code>repeated float frameDuration = 5;</code>
-       */
-      public Builder setFrameDuration(
-          int index, float value) {
-        ensureFrameDurationIsMutable();
-        frameDuration_.set(index, value);
+      public Builder setFrameDuration(float value) {
+        
+        frameDuration_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated float frameDuration = 5;</code>
-       */
-      public Builder addFrameDuration(float value) {
-        ensureFrameDurationIsMutable();
-        frameDuration_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated float frameDuration = 5;</code>
-       */
-      public Builder addAllFrameDuration(
-          java.lang.Iterable<? extends java.lang.Float> values) {
-        ensureFrameDurationIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, frameDuration_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated float frameDuration = 5;</code>
+       * <code>float frameDuration = 5;</code>
        */
       public Builder clearFrameDuration() {
-        frameDuration_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        
+        frameDuration_ = 0F;
         onChanged();
         return this;
+      }
+
+      private float frameOffsetX_ ;
+      /**
+       * <code>float frameOffsetX = 6;</code>
+       */
+      public float getFrameOffsetX() {
+        return frameOffsetX_;
+      }
+      /**
+       * <code>float frameOffsetX = 6;</code>
+       */
+      public Builder setFrameOffsetX(float value) {
+        
+        frameOffsetX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float frameOffsetX = 6;</code>
+       */
+      public Builder clearFrameOffsetX() {
+        
+        frameOffsetX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float frameOffsetY_ ;
+      /**
+       * <code>float frameOffsetY = 7;</code>
+       */
+      public float getFrameOffsetY() {
+        return frameOffsetY_;
+      }
+      /**
+       * <code>float frameOffsetY = 7;</code>
+       */
+      public Builder setFrameOffsetY(float value) {
+        
+        frameOffsetY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float frameOffsetY = 7;</code>
+       */
+      public Builder clearFrameOffsetY() {
+        
+        frameOffsetY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame> frames_ =
+        java.util.Collections.emptyList();
+      private void ensureFramesIsMutable() {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+          frames_ = new java.util.ArrayList<com.reis.game.prototypes.AnimationProto.AnimationFrame>(frames_);
+          bitField0_ |= 0x00000080;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.reis.game.prototypes.AnimationProto.AnimationFrame, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder, com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder> framesBuilder_;
+
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame> getFramesList() {
+        if (framesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(frames_);
+        } else {
+          return framesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public int getFramesCount() {
+        if (framesBuilder_ == null) {
+          return frames_.size();
+        } else {
+          return framesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame getFrames(int index) {
+        if (framesBuilder_ == null) {
+          return frames_.get(index);
+        } else {
+          return framesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder setFrames(
+          int index, com.reis.game.prototypes.AnimationProto.AnimationFrame value) {
+        if (framesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFramesIsMutable();
+          frames_.set(index, value);
+          onChanged();
+        } else {
+          framesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder setFrames(
+          int index, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder builderForValue) {
+        if (framesBuilder_ == null) {
+          ensureFramesIsMutable();
+          frames_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          framesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder addFrames(com.reis.game.prototypes.AnimationProto.AnimationFrame value) {
+        if (framesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFramesIsMutable();
+          frames_.add(value);
+          onChanged();
+        } else {
+          framesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder addFrames(
+          int index, com.reis.game.prototypes.AnimationProto.AnimationFrame value) {
+        if (framesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFramesIsMutable();
+          frames_.add(index, value);
+          onChanged();
+        } else {
+          framesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder addFrames(
+          com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder builderForValue) {
+        if (framesBuilder_ == null) {
+          ensureFramesIsMutable();
+          frames_.add(builderForValue.build());
+          onChanged();
+        } else {
+          framesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder addFrames(
+          int index, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder builderForValue) {
+        if (framesBuilder_ == null) {
+          ensureFramesIsMutable();
+          frames_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          framesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder addAllFrames(
+          java.lang.Iterable<? extends com.reis.game.prototypes.AnimationProto.AnimationFrame> values) {
+        if (framesBuilder_ == null) {
+          ensureFramesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, frames_);
+          onChanged();
+        } else {
+          framesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder clearFrames() {
+        if (framesBuilder_ == null) {
+          frames_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
+          onChanged();
+        } else {
+          framesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public Builder removeFrames(int index) {
+        if (framesBuilder_ == null) {
+          ensureFramesIsMutable();
+          frames_.remove(index);
+          onChanged();
+        } else {
+          framesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder getFramesBuilder(
+          int index) {
+        return getFramesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder getFramesOrBuilder(
+          int index) {
+        if (framesBuilder_ == null) {
+          return frames_.get(index);  } else {
+          return framesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public java.util.List<? extends com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder> 
+           getFramesOrBuilderList() {
+        if (framesBuilder_ != null) {
+          return framesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(frames_);
+        }
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder addFramesBuilder() {
+        return getFramesFieldBuilder().addBuilder(
+            com.reis.game.prototypes.AnimationProto.AnimationFrame.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder addFramesBuilder(
+          int index) {
+        return getFramesFieldBuilder().addBuilder(
+            index, com.reis.game.prototypes.AnimationProto.AnimationFrame.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .AnimationFrame frames = 8;</code>
+       */
+      public java.util.List<com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder> 
+           getFramesBuilderList() {
+        return getFramesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.reis.game.prototypes.AnimationProto.AnimationFrame, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder, com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder> 
+          getFramesFieldBuilder() {
+        if (framesBuilder_ == null) {
+          framesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.reis.game.prototypes.AnimationProto.AnimationFrame, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder, com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder>(
+                  frames_,
+                  ((bitField0_ & 0x00000080) == 0x00000080),
+                  getParentForChildren(),
+                  isClean());
+          frames_ = null;
+        }
+        return framesBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1807,6 +2203,655 @@ public final class AnimationProto {
 
   }
 
+  public interface AnimationFrameOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:AnimationFrame)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 index = 1;</code>
+     */
+    int getIndex();
+
+    /**
+     * <code>float frameOffsetX = 2;</code>
+     */
+    float getFrameOffsetX();
+
+    /**
+     * <code>float frameOffsetY = 3;</code>
+     */
+    float getFrameOffsetY();
+
+    /**
+     * <code>float frameDuration = 4;</code>
+     */
+    float getFrameDuration();
+  }
+  /**
+   * Protobuf type {@code AnimationFrame}
+   */
+  public  static final class AnimationFrame extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:AnimationFrame)
+      AnimationFrameOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AnimationFrame.newBuilder() to construct.
+    private AnimationFrame(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AnimationFrame() {
+      index_ = 0;
+      frameOffsetX_ = 0F;
+      frameOffsetY_ = 0F;
+      frameDuration_ = 0F;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AnimationFrame(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              index_ = input.readInt32();
+              break;
+            }
+            case 21: {
+
+              frameOffsetX_ = input.readFloat();
+              break;
+            }
+            case 29: {
+
+              frameOffsetY_ = input.readFloat();
+              break;
+            }
+            case 37: {
+
+              frameDuration_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.reis.game.prototypes.AnimationProto.internal_static_AnimationFrame_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.reis.game.prototypes.AnimationProto.internal_static_AnimationFrame_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.reis.game.prototypes.AnimationProto.AnimationFrame.class, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder.class);
+    }
+
+    public static final int INDEX_FIELD_NUMBER = 1;
+    private int index_;
+    /**
+     * <code>int32 index = 1;</code>
+     */
+    public int getIndex() {
+      return index_;
+    }
+
+    public static final int FRAMEOFFSETX_FIELD_NUMBER = 2;
+    private float frameOffsetX_;
+    /**
+     * <code>float frameOffsetX = 2;</code>
+     */
+    public float getFrameOffsetX() {
+      return frameOffsetX_;
+    }
+
+    public static final int FRAMEOFFSETY_FIELD_NUMBER = 3;
+    private float frameOffsetY_;
+    /**
+     * <code>float frameOffsetY = 3;</code>
+     */
+    public float getFrameOffsetY() {
+      return frameOffsetY_;
+    }
+
+    public static final int FRAMEDURATION_FIELD_NUMBER = 4;
+    private float frameDuration_;
+    /**
+     * <code>float frameDuration = 4;</code>
+     */
+    public float getFrameDuration() {
+      return frameDuration_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (index_ != 0) {
+        output.writeInt32(1, index_);
+      }
+      if (frameOffsetX_ != 0F) {
+        output.writeFloat(2, frameOffsetX_);
+      }
+      if (frameOffsetY_ != 0F) {
+        output.writeFloat(3, frameOffsetY_);
+      }
+      if (frameDuration_ != 0F) {
+        output.writeFloat(4, frameDuration_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (index_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, index_);
+      }
+      if (frameOffsetX_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, frameOffsetX_);
+      }
+      if (frameOffsetY_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, frameOffsetY_);
+      }
+      if (frameDuration_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, frameDuration_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.reis.game.prototypes.AnimationProto.AnimationFrame)) {
+        return super.equals(obj);
+      }
+      com.reis.game.prototypes.AnimationProto.AnimationFrame other = (com.reis.game.prototypes.AnimationProto.AnimationFrame) obj;
+
+      boolean result = true;
+      result = result && (getIndex()
+          == other.getIndex());
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameOffsetX())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameOffsetX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameOffsetY())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameOffsetY()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getFrameDuration())
+          == java.lang.Float.floatToIntBits(
+              other.getFrameDuration()));
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getIndex();
+      hash = (37 * hash) + FRAMEOFFSETX_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameOffsetX());
+      hash = (37 * hash) + FRAMEOFFSETY_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameOffsetY());
+      hash = (37 * hash) + FRAMEDURATION_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFrameDuration());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.reis.game.prototypes.AnimationProto.AnimationFrame prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code AnimationFrame}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:AnimationFrame)
+        com.reis.game.prototypes.AnimationProto.AnimationFrameOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.reis.game.prototypes.AnimationProto.internal_static_AnimationFrame_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.reis.game.prototypes.AnimationProto.internal_static_AnimationFrame_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.reis.game.prototypes.AnimationProto.AnimationFrame.class, com.reis.game.prototypes.AnimationProto.AnimationFrame.Builder.class);
+      }
+
+      // Construct using com.reis.game.prototypes.AnimationProto.AnimationFrame.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        index_ = 0;
+
+        frameOffsetX_ = 0F;
+
+        frameOffsetY_ = 0F;
+
+        frameDuration_ = 0F;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.reis.game.prototypes.AnimationProto.internal_static_AnimationFrame_descriptor;
+      }
+
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame getDefaultInstanceForType() {
+        return com.reis.game.prototypes.AnimationProto.AnimationFrame.getDefaultInstance();
+      }
+
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame build() {
+        com.reis.game.prototypes.AnimationProto.AnimationFrame result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.reis.game.prototypes.AnimationProto.AnimationFrame buildPartial() {
+        com.reis.game.prototypes.AnimationProto.AnimationFrame result = new com.reis.game.prototypes.AnimationProto.AnimationFrame(this);
+        result.index_ = index_;
+        result.frameOffsetX_ = frameOffsetX_;
+        result.frameOffsetY_ = frameOffsetY_;
+        result.frameDuration_ = frameDuration_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.reis.game.prototypes.AnimationProto.AnimationFrame) {
+          return mergeFrom((com.reis.game.prototypes.AnimationProto.AnimationFrame)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.reis.game.prototypes.AnimationProto.AnimationFrame other) {
+        if (other == com.reis.game.prototypes.AnimationProto.AnimationFrame.getDefaultInstance()) return this;
+        if (other.getIndex() != 0) {
+          setIndex(other.getIndex());
+        }
+        if (other.getFrameOffsetX() != 0F) {
+          setFrameOffsetX(other.getFrameOffsetX());
+        }
+        if (other.getFrameOffsetY() != 0F) {
+          setFrameOffsetY(other.getFrameOffsetY());
+        }
+        if (other.getFrameDuration() != 0F) {
+          setFrameDuration(other.getFrameDuration());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.reis.game.prototypes.AnimationProto.AnimationFrame parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.reis.game.prototypes.AnimationProto.AnimationFrame) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int index_ ;
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public int getIndex() {
+        return index_;
+      }
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public Builder setIndex(int value) {
+        
+        index_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public Builder clearIndex() {
+        
+        index_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float frameOffsetX_ ;
+      /**
+       * <code>float frameOffsetX = 2;</code>
+       */
+      public float getFrameOffsetX() {
+        return frameOffsetX_;
+      }
+      /**
+       * <code>float frameOffsetX = 2;</code>
+       */
+      public Builder setFrameOffsetX(float value) {
+        
+        frameOffsetX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float frameOffsetX = 2;</code>
+       */
+      public Builder clearFrameOffsetX() {
+        
+        frameOffsetX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float frameOffsetY_ ;
+      /**
+       * <code>float frameOffsetY = 3;</code>
+       */
+      public float getFrameOffsetY() {
+        return frameOffsetY_;
+      }
+      /**
+       * <code>float frameOffsetY = 3;</code>
+       */
+      public Builder setFrameOffsetY(float value) {
+        
+        frameOffsetY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float frameOffsetY = 3;</code>
+       */
+      public Builder clearFrameOffsetY() {
+        
+        frameOffsetY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float frameDuration_ ;
+      /**
+       * <code>float frameDuration = 4;</code>
+       */
+      public float getFrameDuration() {
+        return frameDuration_;
+      }
+      /**
+       * <code>float frameDuration = 4;</code>
+       */
+      public Builder setFrameDuration(float value) {
+        
+        frameDuration_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float frameDuration = 4;</code>
+       */
+      public Builder clearFrameDuration() {
+        
+        frameDuration_ = 0F;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:AnimationFrame)
+    }
+
+    // @@protoc_insertion_point(class_scope:AnimationFrame)
+    private static final com.reis.game.prototypes.AnimationProto.AnimationFrame DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.reis.game.prototypes.AnimationProto.AnimationFrame();
+    }
+
+    public static com.reis.game.prototypes.AnimationProto.AnimationFrame getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AnimationFrame>
+        PARSER = new com.google.protobuf.AbstractParser<AnimationFrame>() {
+      public AnimationFrame parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AnimationFrame(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AnimationFrame> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AnimationFrame> getParserForType() {
+      return PARSER;
+    }
+
+    public com.reis.game.prototypes.AnimationProto.AnimationFrame getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AnimationData_descriptor;
   private static final 
@@ -1817,6 +2862,11 @@ public final class AnimationProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AnimationPrototype_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_AnimationFrame_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AnimationFrame_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1826,14 +2876,18 @@ public final class AnimationProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017animation.proto\032\014sprite.proto\"@\n\rAnima" +
-      "tionData\022/\n\022animationPrototype\030\001 \003(\0132\023.A" +
-      "nimationPrototype\"\211\001\n\022AnimationPrototype" +
-      "\022\021\n\tatlasName\030\001 \001(\t\022\025\n\ranimationName\030\002 \001" +
-      "(\t\022\027\n\017actionClassName\030\003 \001(\t\022\031\n\021entityOri" +
-      "entation\030\004 \001(\005\022\025\n\rframeDuration\030\005 \003(\002B*\n" +
-      "\030com.reis.game.prototypesB\016AnimationProt" +
-      "ob\006proto3"
+      "\n\017animation.proto\"@\n\rAnimationData\022/\n\022an" +
+      "imationPrototype\030\001 \003(\0132\023.AnimationProtot" +
+      "ype\"\326\001\n\022AnimationPrototype\022\021\n\tatlasName\030" +
+      "\001 \001(\t\022\025\n\ranimationName\030\002 \001(\t\022\027\n\017actionCl" +
+      "assName\030\003 \001(\t\022\031\n\021entityOrientation\030\004 \001(\005" +
+      "\022\025\n\rframeDuration\030\005 \001(\002\022\024\n\014frameOffsetX\030" +
+      "\006 \001(\002\022\024\n\014frameOffsetY\030\007 \001(\002\022\037\n\006frames\030\010 " +
+      "\003(\0132\017.AnimationFrame\"b\n\016AnimationFrame\022\r" +
+      "\n\005index\030\001 \001(\005\022\024\n\014frameOffsetX\030\002 \001(\002\022\024\n\014f" +
+      "rameOffsetY\030\003 \001(\002\022\025\n\rframeDuration\030\004 \001(\002" +
+      "B*\n\030com.reis.game.prototypesB\016AnimationP" +
+      "rotob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1846,7 +2900,6 @@ public final class AnimationProto {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.reis.game.prototype.SpriteProto.getDescriptor(),
         }, assigner);
     internal_static_AnimationData_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1859,8 +2912,13 @@ public final class AnimationProto {
     internal_static_AnimationPrototype_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AnimationPrototype_descriptor,
-        new java.lang.String[] { "AtlasName", "AnimationName", "ActionClassName", "EntityOrientation", "FrameDuration", });
-    com.reis.game.prototype.SpriteProto.getDescriptor();
+        new java.lang.String[] { "AtlasName", "AnimationName", "ActionClassName", "EntityOrientation", "FrameDuration", "FrameOffsetX", "FrameOffsetY", "Frames", });
+    internal_static_AnimationFrame_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_AnimationFrame_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_AnimationFrame_descriptor,
+        new java.lang.String[] { "Index", "FrameOffsetX", "FrameOffsetY", "FrameDuration", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

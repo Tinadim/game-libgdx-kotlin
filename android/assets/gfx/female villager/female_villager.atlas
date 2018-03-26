@@ -1,0 +1,118 @@
+
+female_villager.png
+size: 256,32
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+female_villager_0
+  rotate: false
+  xy: 25, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_0
+  rotate: false
+  xy: 48, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 1
+female_villager_0
+  rotate: false
+  xy: 71, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 2
+female_villager_1
+  rotate: false
+  xy: 94, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 2
+female_villager_1
+  rotate: false
+  xy: 140, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_1
+  rotate: false
+  xy: 186, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 1
+female_villager_2
+  rotate: false
+  xy: 2, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 1
+female_villager_2
+  rotate: false
+  xy: 117, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 2
+female_villager_2
+  rotate: false
+  xy: 163, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_3
+  rotate: false
+  xy: 94, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 2
+female_villager_3
+  rotate: false
+  xy: 140, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_3
+  rotate: false
+  xy: 186, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 1
+female_villager_default_0
+  rotate: false
+  xy: 48, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_default_1
+  rotate: false
+  xy: 140, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0
+female_villager_default_2
+  rotate: false
+  xy: 117, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 2
+female_villager_default_3
+  rotate: false
+  xy: 140, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 0

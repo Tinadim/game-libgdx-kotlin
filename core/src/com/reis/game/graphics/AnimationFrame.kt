@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 /**
  * Created by berna on 18-Mar-18.
  */
-class AnimationFrame(atlasRegion: AtlasRegion): AtlasRegionWithOffset(atlasRegion) {
-
-    val frameDuration: Float = 0f
-}
+data class AnimationFrame(
+    private val atlasRegion: AtlasRegion,
+    var frameDuration: Float = 0f,
+    override var drawOffsetX: Float = 0f,
+    override var drawOffsetY: Float = 0f): AtlasRegionWithOffset(atlasRegion)
