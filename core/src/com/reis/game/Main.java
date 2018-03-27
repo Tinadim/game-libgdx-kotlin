@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.reis.game.contants.GameConstants;
 import com.reis.game.entity.GameEntity;
 import com.reis.game.entity.ai.controllers.AI;
+import com.reis.game.entity.ai.controllers.AiFactory;
 import com.reis.game.entity.ai.controllers.ManualController;
 import com.reis.game.entity.components.AnimationComponent;
 import com.reis.game.entity.components.EntityControllerComponent;
@@ -25,6 +26,7 @@ import com.reis.game.input.InputHandler;
 import com.reis.game.mechanics.battle.weapons.TestWeapon;
 import com.reis.game.mechanics.collision.CollisionManager;
 import com.reis.game.mechanics.collision.CollisionTrigger;
+import com.reis.game.prototypes.AiProto;
 import com.reis.game.prototypes.AnimationProto;
 import com.reis.game.resources.ResourceManager;
 import com.reis.game.scene.dialog.DialogManager;
@@ -87,7 +89,7 @@ public class Main extends ApplicationAdapter {
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
 		entity2.addComponent(new CombatComponent(entity2, 2));
 
-        AI ai = new AI(femaleVillager, new com.reis.game.entity.ai.states.State());
+		AI ai = AiFactory.invoke(femaleVillager, buildMockAiData(10, 5));
 		femaleVillager.setCoordinates(0, 1);
 		femaleVillager.addComponent(new BodyComponent(femaleVillager));
 		femaleVillager.addComponent(new InteractionComponent(femaleVillager));
@@ -236,6 +238,16 @@ public class Main extends ApplicationAdapter {
 				.addAllAnimationPrototype(data)
 				.build();
 		return animationData;
+	}
+
+	private AiProto.AiData buildMockAiData(int column, int row) {
+		return AiProto.AiData
+				.newBuilder()
+				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column - 3).setRow(row).build())
+				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column).setRow(row).build())
+				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column + 3).setRow(row).build())
+				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column).setRow(row).build())
+				.build();
 	}
 
 	public void addDialog(DialogWindow window) {

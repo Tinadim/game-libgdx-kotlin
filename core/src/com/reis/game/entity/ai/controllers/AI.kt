@@ -1,8 +1,10 @@
 package com.reis.game.entity.ai.controllers
 
 import com.reis.game.entity.GameEntity
+import com.reis.game.entity.ai.actions.EntityAction
 import com.reis.game.entity.ai.states.State
-import com.reis.game.prototypes.AiData
+import com.reis.game.entity.components.EntityControllerComponent
+import com.reis.game.prototypes.AiProto.AiData
 
 /**
  * Created by bernardoreis on 12/25/17.
@@ -11,19 +13,15 @@ import com.reis.game.prototypes.AiData
  * to feed the action processor, and the the action priority system will decide if the
  * current action should be replaced
  */
-class AI constructor(private val entity: GameEntity, initialState: State): EntityController {
+abstract class AI constructor(private val entity: GameEntity, aiData: AiData): EntityController {
 
-    private var currentState: State = initialState
+    private var currentState: State = this.buildStateMachine(aiData)
 
     init {
         this.currentState.enterState(this)
     }
 
-    companion object {
-        fun parse(data: AiData, entity: GameEntity): AI {
-            return AI(entity, data.initialState)
-        }
-    }
+    abstract fun buildStateMachine(data: AiData): State
 
     fun setCurrentState(state: State) {
         this.currentState.leaveState(this, state)
@@ -46,5 +44,13 @@ class AI constructor(private val entity: GameEntity, initialState: State): Entit
 
     fun getEntity(): GameEntity {
         return this.entity
+    }
+
+    fun addAction(action: EntityAction) {
+        getEntityController().addAction(action)
+    }
+
+    fun getEntityController(): EntityControllerComponent {
+        return this.entity.requireComponent(EntityControllerComponent::class.java)
     }
 }

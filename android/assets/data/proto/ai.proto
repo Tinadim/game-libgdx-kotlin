@@ -1,0 +1,13 @@
+syntax = "proto3";
+option java_package="com.reis.game.prototypes";
+option java_outer_classname="AiProto";
+
+message AiData {
+    string aiType = 1;
+    repeated Waypoint waypoint = 2;
+}
+
+message Waypoint {
+    int32 row = 1;
+    int32 col = 2;
+}
