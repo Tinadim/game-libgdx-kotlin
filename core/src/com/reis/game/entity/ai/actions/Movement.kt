@@ -10,18 +10,14 @@ import com.reis.game.entity.components.MovementComponent
 /**
  * Created by bernardoreis on 1/1/18.
  */
-class Movement(private var velocity: Vector2): EntityAction(ActionConstants.MOVE_PRIORITY) {
-
-    //Local cache of movement component for the entity
-    private var component: MovementComponent? = null
+class Movement(private var velocity: Vector2, private var destination: Vector2? = null):
+        EntityAction(ActionConstants.MOVE_PRIORITY) {
 
     init {
         this.selfReplaceable = true
     }
 
     override fun onStart(entity: GameEntity) {
-//        this.component = entity.requireComponent(MovementComponent::class.java)
-//        component?.move(velocity)
         this.velocity = this.normalizeVelocity(velocity)
         if (!velocity.isZero) {
             this.calcEntityOrientation(entity)
@@ -39,11 +35,6 @@ class Movement(private var velocity: Vector2): EntityAction(ActionConstants.MOVE
         } else {
             entity.moveBy(distanceToWalk.x, distanceToWalk.y)
         }
-
-//        val component = this.component
-//        if (component != null && component.isStopped()) {
-//            this.finish()
-//        }
     }
 
     private fun normalizeVelocity(velocity: Vector2): Vector2 {
@@ -55,7 +46,16 @@ class Movement(private var velocity: Vector2): EntityAction(ActionConstants.MOVE
     }
 
     private fun calcDistanceToWalk(delta: Float, entity: GameEntity): Vector2 {
+        // TODO optimize this
         var distanceToWalk = this.velocity.cpy().scl(delta)
+        val destination = this.destination
+        if (destination != null) {
+            val distanceToDestination = Vector2(destination.x - entity.x, destination.y - entity.y)
+            if (distanceToDestination.epsilonEquals(Vector2.Zero)) return Vector2.Zero
+            distanceToWalk.x = Math.min(distanceToWalk.x, distanceToDestination.x)
+            distanceToWalk.y = Math.min(distanceToWalk.y, distanceToDestination.y)
+        }
+
         if (distanceToWalk.x != 0f) {
             distanceToWalk.x = Math.signum(distanceToWalk.x) *
                     Math.max(1f, Math.round(Math.abs(distanceToWalk.x)).toFloat())
@@ -65,7 +65,6 @@ class Movement(private var velocity: Vector2): EntityAction(ActionConstants.MOVE
                     Math.max(1f, Math.round(Math.abs(distanceToWalk.y)).toFloat())
         }
 
-        println("Distance to walk x: " + distanceToWalk.x)
         val body = entity.getComponent<BodyComponent>(BodyComponent::class.java)
         if (body != null) {
             val collisionResults = body.checkCollision(distanceToWalk)
