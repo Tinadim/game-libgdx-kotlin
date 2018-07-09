@@ -12,8 +12,7 @@ import com.reis.game.entity.ai.actions.Idle
 class EntityControllerComponent constructor(entity: GameEntity,
     private val entityController: EntityController) : EntityComponent(entity) {
 
-    private val actionProcessor: ActionQueue = ActionQueue()
-    private var currentAction: EntityAction = actionProcessor.idle
+    private var currentAction: EntityAction = Idle()
 
     init {
         currentAction.start(entity)
@@ -21,9 +20,9 @@ class EntityControllerComponent constructor(entity: GameEntity,
 
     override fun update(delta: Float) {
         entityController.update(delta)
-        val nextAction = actionProcessor.getNextAction()
-        if (shouldReplaceCurrentAction(nextAction)) {
-            replaceCurrentAction(nextAction)
+        // TODO check impact of this logic on the state machine
+        if (currentAction.isFinished()) {
+            currentAction = Idle()
         }
         // Action update already happens as part of the action update
         // currentAction.update(delta, entity)
@@ -51,12 +50,10 @@ class EntityControllerComponent constructor(entity: GameEntity,
         currentAction.start(entity)
     }
 
-    fun addAction(action: EntityAction) {
-        actionProcessor.addAction(action)
-    }
-
-    fun getActionProcessor(): ActionQueue {
-        return actionProcessor
+    fun setAction(action: EntityAction) {
+        if (shouldReplaceCurrentAction(action)) {
+            replaceCurrentAction(action)
+        }
     }
 
     fun getCurrentAction(): EntityAction {

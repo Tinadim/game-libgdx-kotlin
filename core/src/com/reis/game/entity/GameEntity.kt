@@ -49,7 +49,7 @@ open class GameEntity(val id: Int) : Group() {
 
     fun addAction(action: EntityAction) {
         val component = this.getComponent<EntityControllerComponent>(EntityControllerComponent::class.java)
-        component?.addAction(action) ?: action.start(this)
+        component?.setAction(action) ?: action.start(this)
     }
 
     fun registerAction(action: Action) {

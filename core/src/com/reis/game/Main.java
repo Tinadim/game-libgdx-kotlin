@@ -243,6 +243,7 @@ public class Main extends ApplicationAdapter {
 	private AiProto.AiData buildMockAiData(int column, int row) {
 		return AiProto.AiData
 				.newBuilder()
+				.setAiType("NpcAi")
 				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column - 3).setRow(row).build())
 				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column).setRow(row).build())
 				.addWaypoint(AiProto.Waypoint.newBuilder().setCol(column + 3).setRow(row).build())

@@ -9,7 +9,7 @@ import com.reis.game.entity.ai.actions.Movement
  */
 class MovementComponent(entity: GameEntity): EntityComponent(entity) {
 
-    private var velocity: Vector2 = Vector2.Zero
+    var velocity: Vector2 = Vector2.Zero
     private var body: BodyComponent? = entity.getComponent(BodyComponent::class.java)
 
     fun move(direction: Vector2) {

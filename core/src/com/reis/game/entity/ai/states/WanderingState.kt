@@ -1,8 +1,11 @@
 package com.reis.game.entity.ai.states
 
 import com.badlogic.gdx.math.Vector2
+import com.reis.game.entity.GameEntity
 import com.reis.game.entity.ai.actions.Movement
 import com.reis.game.entity.ai.controllers.AI
+import com.reis.game.entity.ai.transitions.TransitionCondition
+import com.reis.game.entity.components.MovementComponent
 
 class WanderingState(private val waypoints: Array<Vector2>): State() {
 
@@ -10,13 +13,28 @@ class WanderingState(private val waypoints: Array<Vector2>): State() {
 
     override fun enterState(ai: AI) {
         super.enterState(ai)
-        val action = Movement(, getNextWaypoint())
+        val entity = ai.entity
+        val movementComponent = entity
+                .requireComponent<MovementComponent>(MovementComponent::class.java)
+        val action = Movement(movementComponent.velocity, getNextWaypoint())
         ai.addAction(action)
     }
 
     private fun getNextWaypoint(): Vector2 {
-        if (currentWaypointIndex == waypoints.size)
+        if (currentWaypointIndex == waypoints.size) {
             currentWaypointIndex = 0
+        }
         return waypoints[currentWaypointIndex++]
+    }
+
+    companion object {
+        @JvmStatic
+        fun shouldMoveCondition(entity: GameEntity) : TransitionCondition {
+            return object : TransitionCondition {
+                override fun evaluate(ai: AI): Boolean {
+                    return entity.hasComponent(MovementComponent::class.java)
+                }
+            }
+        }
     }
 }

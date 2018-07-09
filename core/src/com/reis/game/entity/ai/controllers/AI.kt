@@ -1,9 +1,15 @@
 package com.reis.game.entity.ai.controllers
 
+import com.reis.game.Main
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.ai.actions.EntityAction
+import com.reis.game.entity.ai.states.InterruptedState
 import com.reis.game.entity.ai.states.State
 import com.reis.game.entity.components.EntityControllerComponent
+import com.reis.game.event.Event
+import com.reis.game.event.EventFilter
+import com.reis.game.event.EventListener
+import com.reis.game.event.EventType
 import com.reis.game.prototypes.AiProto.AiData
 
 /**
@@ -13,20 +19,22 @@ import com.reis.game.prototypes.AiProto.AiData
  * to feed the action processor, and the the action priority system will decide if the
  * current action should be replaced
  */
-abstract class AI constructor(private val entity: GameEntity, aiData: AiData): EntityController {
+abstract class AI constructor(val entity: GameEntity, aiData: AiData):
+        EntityController, EventListener {
 
     private var currentState: State = this.buildStateMachine(aiData)
 
     init {
-        this.currentState.enterState(this)
+        Main.getInstance().newEventProcessor.on(EventType.ACTION_STOPPED, this)
+        currentState.enterState(this)
     }
 
     abstract fun buildStateMachine(data: AiData): State
 
     fun setCurrentState(state: State) {
-        this.currentState.leaveState(this, state)
-        this.currentState = state
-        this.currentState.enterState(this)
+        currentState.leaveState(this, state)
+        currentState = state
+        currentState.enterState(this)
     }
 
     fun getCurrentState(): State {
@@ -34,7 +42,7 @@ abstract class AI constructor(private val entity: GameEntity, aiData: AiData): E
     }
 
     override fun update(delta: Float) {
-        this.currentState.update(this, delta)
+        currentState.update(this, delta)
         val transition = this.currentState.checkTransitions(this)
         val nextState = transition?.getNextState()
         if (nextState != null) {
@@ -42,15 +50,27 @@ abstract class AI constructor(private val entity: GameEntity, aiData: AiData): E
         }
     }
 
-    fun getEntity(): GameEntity {
-        return this.entity
+    fun addAction(action: EntityAction) {
+        getEntityController().setAction(action)
     }
 
-    fun addAction(action: EntityAction) {
-        getEntityController().addAction(action)
+    fun getCurrentAction(): EntityAction {
+        return getEntityController().getCurrentAction()
     }
 
     fun getEntityController(): EntityControllerComponent {
         return this.entity.requireComponent(EntityControllerComponent::class.java)
+    }
+
+    override val filter: EventFilter = object : EventFilter() {
+        override fun test(event: Event): Boolean {
+            val originator = event.data as GameEntity
+            return originator === entity
+        }
+    }
+
+    override fun onEvent(event: Event) {
+        val interruptedState = InterruptedState(currentState, event.trigger as EntityAction)
+        this.setCurrentState(interruptedState)
     }
 }
