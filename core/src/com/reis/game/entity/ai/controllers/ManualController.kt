@@ -34,6 +34,8 @@ class ManualController(private val entity: GameEntity): EntityController,
         Main.getInstance().dialogManager.registerListener(entity, this)
     }
 
+    override fun start() {}
+
     fun handleDirectionalInput(direction: Vector2) {
         entity.requireComponent<MovementComponent>(MovementComponent::class.java).move(direction)
     }

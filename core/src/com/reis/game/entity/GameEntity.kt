@@ -47,6 +47,12 @@ open class GameEntity(val id: Int) : Group() {
         return super.remove()
     }
 
+    fun onSceneStarted() {
+        this.components.getComponents().forEach {
+            it.onSceneStarted()
+        }
+    }
+
     fun addAction(action: EntityAction) {
         val component = this.getComponent<EntityControllerComponent>(EntityControllerComponent::class.java)
         component?.setAction(action) ?: action.start(this)

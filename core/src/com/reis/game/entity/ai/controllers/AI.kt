@@ -26,6 +26,9 @@ abstract class AI constructor(val entity: GameEntity, aiData: AiData):
 
     init {
         Main.getInstance().newEventProcessor.on(EventType.ACTION_STOPPED, this)
+    }
+
+    override fun start() {
         currentState.enterState(this)
     }
 
@@ -54,7 +57,7 @@ abstract class AI constructor(val entity: GameEntity, aiData: AiData):
         getEntityController().setAction(action)
     }
 
-    fun getCurrentAction(): EntityAction {
+    fun getCurrentAction(): EntityAction? {
         return getEntityController().getCurrentAction()
     }
 
@@ -64,12 +67,12 @@ abstract class AI constructor(val entity: GameEntity, aiData: AiData):
 
     override val filter: EventFilter = object : EventFilter() {
         override fun test(event: Event): Boolean {
-            val originator = event.data as GameEntity
-            return originator === entity
+            return (event.trigger as EntityAction) === getCurrentAction()
         }
     }
 
     override fun onEvent(event: Event) {
+        println("Interrupting current state...")
         val interruptedState = InterruptedState(currentState, event.trigger as EntityAction)
         this.setCurrentState(interruptedState)
     }

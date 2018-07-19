@@ -16,14 +16,16 @@ class WanderingState(private val waypoints: Array<Vector2>): State() {
         val entity = ai.entity
         val movementComponent = entity
                 .requireComponent<MovementComponent>(MovementComponent::class.java)
-        val action = Movement(movementComponent.velocity, getNextWaypoint())
+        val action = Movement(movementComponent.defaultVelocity, getNextWaypoint())
         ai.addAction(action)
     }
 
     private fun getNextWaypoint(): Vector2 {
         if (currentWaypointIndex == waypoints.size) {
+            println("Last waypoint reached. Starting over...")
             currentWaypointIndex = 0
         }
+        println("Getting next waypoint")
         return waypoints[currentWaypointIndex++]
     }
 

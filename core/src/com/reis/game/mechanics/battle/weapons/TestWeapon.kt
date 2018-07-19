@@ -13,6 +13,8 @@ import com.reis.game.mechanics.collision.CollisionType
 class TestWeapon: Weapon() {
 
     override fun buildDamageSource(attacker: GameEntity): DamageSource {
+        // TODO for this weapon, the parent damage source still adds an unnecessary object to
+        // the scene
         val parentDamageSource = DamageSource.Builder().build()
         val baseDamageSource = DamageSource
                 .maxHits(1)

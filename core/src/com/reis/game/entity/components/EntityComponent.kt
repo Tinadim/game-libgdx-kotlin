@@ -9,13 +9,9 @@ import com.reis.game.mechanics.collision.CollisionListener
 /**
  * Created by bernardoreis on 12/25/17.
  */
-abstract class EntityComponent(protected val entity:GameEntity) : Component {
+abstract class EntityComponent(protected val entity: GameEntity) : Component {
 
-    init {
-        if (this is CollisionListener) {
-            Main.getInstance().collisionManager.registerListener(entity, this)
-        }
-    }
+    open fun onSceneStarted() {}
 
     open fun update(delta: Float) {}
 

@@ -7,13 +7,13 @@ object AiUtils {
     @JvmStatic
     fun extractWayPoints(data: AiProto.AiData): Array<Vector2> {
         val waypointList = data.waypointList
-        val waypoints = emptyArray<Vector2>()
+        val waypoints = ArrayList<Vector2>(waypointList?.size ?: 0)
         if (waypointList != null) {
             for (i in waypointList.indices) {
                 val waypoint = waypointList[i]
-                waypoints[i] = MapUtils.getPositionForTile(waypoint.col, waypoint.row)
+                waypoints.add(MapUtils.getPositionForTile(waypoint.col, waypoint.row))
             }
         }
-        return waypoints
+        return waypoints.toTypedArray()
     }
 }

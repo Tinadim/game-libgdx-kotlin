@@ -89,12 +89,15 @@ public class Main extends ApplicationAdapter {
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
 		entity2.addComponent(new CombatComponent(entity2, 2));
 
-		AI ai = AiFactory.invoke(femaleVillager, buildMockAiData(10, 5));
-		femaleVillager.setCoordinates(0, 1);
+		int femaleVillagerRow = 5;
+		int femaleVillagerCol = 10;
+		AI ai = AiFactory.invoke(femaleVillager, buildMockAiData(femaleVillagerCol, femaleVillagerRow));
+		femaleVillager.setCoordinates(femaleVillagerRow, femaleVillagerCol);
 		femaleVillager.addComponent(new BodyComponent(femaleVillager));
 		femaleVillager.addComponent(new InteractionComponent(femaleVillager));
 		femaleVillager.addComponent(new AnimationComponent(femaleVillager, buildMockAnimation()));
         femaleVillager.addComponent(new EntityControllerComponent(femaleVillager, ai));
+        femaleVillager.addComponent(new MovementComponent(femaleVillager));
 
 		trigger = new CollisionTrigger(3);
 		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
@@ -105,9 +108,13 @@ public class Main extends ApplicationAdapter {
 		stage.addActor(femaleVillager);
 		stage.addActor(trigger);
 
-		((BodyComponent) entity2.getComponent(BodyComponent.class)).bindTiles();
-		((BodyComponent) femaleVillager.getComponent(BodyComponent.class)).bindTiles();
-		((BodyComponent) trigger.getComponent(BodyComponent.class)).bindTiles();
+		// TODO find way to call this automatically when scene starts
+        // TODO rename this method maybe
+		player.onSceneStarted();
+		entity2.onSceneStarted();
+		femaleVillager.onSceneStarted();
+		trigger.onSceneStarted();
+
 		Gdx.input.setInputProcessor(new InputHandler(controller));
 	}
 

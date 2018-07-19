@@ -52,6 +52,6 @@ open class State {
     }
 
     fun sortTransitions() {
-        this.transitions?.sortBy { it.getPriority() }
+        this.transitions?.sortBy { it.getPriority() * -1 }
     }
 }

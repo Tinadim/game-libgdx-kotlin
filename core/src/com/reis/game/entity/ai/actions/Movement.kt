@@ -5,7 +5,7 @@ import com.reis.game.contants.ActionConstants
 import com.reis.game.contants.GameConstants
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.components.BodyComponent
-import com.reis.game.entity.components.MovementComponent
+import com.reis.game.util.MathUtils
 
 /**
  * Created by bernardoreis on 1/1/18.
@@ -18,7 +18,7 @@ class Movement(private var velocity: Vector2, private var destination: Vector2? 
     }
 
     override fun onStart(entity: GameEntity) {
-        this.velocity = this.normalizeVelocity(velocity)
+        this.velocity = this.normalizeVelocity(velocity, entity)
         if (!velocity.isZero) {
             this.calcEntityOrientation(entity)
         }
@@ -31,14 +31,21 @@ class Movement(private var velocity: Vector2, private var destination: Vector2? 
         }
         val distanceToWalk = calcDistanceToWalk(delta, entity)
         if (distanceToWalk.isZero) {
-            this.stop(entity)
+            this.finish()
         } else {
             entity.moveBy(distanceToWalk.x, distanceToWalk.y)
         }
     }
 
-    private fun normalizeVelocity(velocity: Vector2): Vector2 {
-        return velocity.cpy().scl(GameConstants.TILE_SIZE.toFloat() * 2)
+    private fun normalizeVelocity(velocity: Vector2, entity: GameEntity): Vector2 {
+        var normalizedVelocity = velocity.cpy().scl(GameConstants.TILE_SIZE.toFloat() * 2)
+        val destination = this.destination
+        if (destination != null) {
+            val distanceToDestination = Vector2(destination.x - entity.x, destination.y - entity.y)
+            if (distanceToDestination.x < 0 && normalizedVelocity.x > 0) normalizedVelocity.x *= -1
+            if (distanceToDestination.y < 0 && normalizedVelocity.y > 0) normalizedVelocity.y *= -1
+        }
+        return normalizedVelocity
     }
 
     fun isStopped(): Boolean {
@@ -52,17 +59,14 @@ class Movement(private var velocity: Vector2, private var destination: Vector2? 
         if (destination != null) {
             val distanceToDestination = Vector2(destination.x - entity.x, destination.y - entity.y)
             if (distanceToDestination.epsilonEquals(Vector2.Zero)) return Vector2.Zero
-            distanceToWalk.x = Math.min(distanceToWalk.x, distanceToDestination.x)
-            distanceToWalk.y = Math.min(distanceToWalk.y, distanceToDestination.y)
+            distanceToWalk.x = MathUtils.absMin(distanceToWalk.x, distanceToDestination.x)
+            distanceToWalk.y = MathUtils.absMin(distanceToWalk.y, distanceToDestination.y)
         }
-
         if (distanceToWalk.x != 0f) {
-            distanceToWalk.x = Math.signum(distanceToWalk.x) *
-                    Math.max(1f, Math.round(Math.abs(distanceToWalk.x)).toFloat())
+            distanceToWalk.x = MathUtils.absMax(1f * Math.signum(distanceToWalk.x), distanceToWalk.x)
         }
         if (distanceToWalk.y != 0f) {
-            distanceToWalk.y = Math.signum(distanceToWalk.y) *
-                    Math.max(1f, Math.round(Math.abs(distanceToWalk.y)).toFloat())
+            distanceToWalk.y = MathUtils.absMax(1f * Math.signum(distanceToWalk.y), distanceToWalk.y)
         }
 
         val body = entity.getComponent<BodyComponent>(BodyComponent::class.java)

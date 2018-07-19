@@ -37,7 +37,7 @@ class Interaction(private val entity: GameEntity, private val interactingWith: G
     override fun onDialogStarted(dialog: DialogWindow) {}
 
     override fun onDialogEnded(dialog: DialogWindow) {
-        this.finish()
+        this.complete(entity)
     }
 
     private fun startInteraction() {

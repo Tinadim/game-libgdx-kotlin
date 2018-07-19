@@ -8,7 +8,7 @@ import com.reis.game.entity.ai.actions.Movement
  * Created by bernardoreis on 1/1/18.
  */
 class MovementComponent(entity: GameEntity): EntityComponent(entity) {
-
+    val defaultVelocity: Vector2 = Vector2(1.0f, 1.0f)
     var velocity: Vector2 = Vector2.Zero
     private var body: BodyComponent? = entity.getComponent(BodyComponent::class.java)
 

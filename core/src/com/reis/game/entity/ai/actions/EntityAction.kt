@@ -64,6 +64,9 @@ open class EntityAction constructor(private val priority: Int): Action(), EventE
     }
 
     fun complete(entity: GameEntity) {
+        // TODO check actions that are calling finish instead of complete
+        // TODO check if having both finish and complete is actually needed
+        finish()
         onComplete(entity)
         emit(Event(EventType.ACTION_COMPLETED, this, entity))
     }

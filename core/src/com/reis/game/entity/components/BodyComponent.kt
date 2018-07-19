@@ -21,6 +21,10 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
         this.collisionType = collisionType
     }
 
+    override fun onSceneStarted() {
+        bindTiles()
+    }
+
     override fun update(delta: Float) {
         super.update(delta)
         if (this.collisionType == CollisionType.PASSIVE) {

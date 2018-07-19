@@ -12,23 +12,24 @@ import com.reis.game.entity.ai.actions.Idle
 class EntityControllerComponent constructor(entity: GameEntity,
     private val entityController: EntityController) : EntityComponent(entity) {
 
-    private var currentAction: EntityAction = Idle()
+    private var currentAction: EntityAction? = null
 
-    init {
-        currentAction.start(entity)
+    override fun onSceneStarted() {
+        entityController.start()
     }
 
     override fun update(delta: Float) {
         entityController.update(delta)
         // TODO check impact of this logic on the state machine
-        if (currentAction.isFinished()) {
-            currentAction = Idle()
-        }
+        // if (currentAction?.isFinished()) {
+            // currentAction = Idle()
+        // }
         // Action update already happens as part of the action update
         // currentAction.update(delta, entity)
     }
 
     private fun shouldReplaceCurrentAction(nextAction: EntityAction): Boolean {
+        val currentAction = this.currentAction ?: return true
         if (currentAction === nextAction) {
             return false
         }
@@ -43,11 +44,12 @@ class EntityControllerComponent constructor(entity: GameEntity,
     }
 
     private fun replaceCurrentAction(nextAction: EntityAction) {
-        if (!currentAction.isFinished()) {
+        val currentAction = this.currentAction
+        if (currentAction != null && !currentAction.isFinished()) {
             currentAction.stop(entity)
         }
-        currentAction = nextAction
-        currentAction.start(entity)
+        this.currentAction = nextAction
+        nextAction.start(entity)
     }
 
     fun setAction(action: EntityAction) {
@@ -56,7 +58,7 @@ class EntityControllerComponent constructor(entity: GameEntity,
         }
     }
 
-    fun getCurrentAction(): EntityAction {
+    fun getCurrentAction(): EntityAction? {
         return currentAction
     }
 }
