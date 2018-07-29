@@ -127,7 +127,7 @@ class DialogWindow(text: String, options: DialogOptions = DialogOptions(),
     }
 
     private fun calcDialogPosition() {
-        val width = Main.getInstance().stage.width
+        val width = Main.getInstance().scene.getWidth()
         val x = (width - expectedWidth) * 0.5f
         this.setPosition(x, 0f)
     }

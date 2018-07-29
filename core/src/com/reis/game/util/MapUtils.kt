@@ -1,7 +1,10 @@
 package com.reis.game.util
 
+import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.contants.GameConstants
+import com.badlogic.gdx.math.Rectangle
+
 
 /**
  * Created by bernardoreis on 1/6/18.
@@ -35,5 +38,34 @@ object MapUtils {
     @JvmStatic
     fun toPosition(tileCoord: Int): Float {
         return (tileCoord * GameConstants.TILE_SIZE).toFloat()
+    }
+
+    @JvmStatic
+    fun getMapTileWidth(map: TiledMap): Int {
+        val prop = map.getProperties()
+        return prop.get("width", Int::class.java)
+    }
+
+    @JvmStatic
+    fun getMapTileHeight(map: TiledMap): Int {
+        val prop = map.getProperties()
+        return prop.get("height", Int::class.java)
+    }
+
+    @JvmStatic
+    fun getMapWidth(map: TiledMap): Float {
+        val prop = map.getProperties()
+        return prop.get("tilewidth", Float::class.java) * getMapTileWidth(map)
+    }
+
+    @JvmStatic
+    fun getMapHeight(map: TiledMap): Float {
+        val prop = map.getProperties()
+        return prop.get("tileheight", Float::class.java) * getMapTileHeight(map)
+    }
+
+    @JvmStatic
+    fun getMapBounds(map: TiledMap): Rectangle {
+        return Rectangle(0f, 0f, getMapWidth(map), getMapHeight(map))
     }
 }

@@ -3,8 +3,6 @@ package com.reis.game.entity.components
 import com.reis.game.entity.GameEntity
 import com.reis.game.entity.ai.controllers.EntityController
 import com.reis.game.entity.ai.actions.EntityAction
-import com.reis.game.entity.ai.actions.ActionQueue
-import com.reis.game.entity.ai.actions.Idle
 
 /**
  * Created by bernardoreis on 12/25/17.

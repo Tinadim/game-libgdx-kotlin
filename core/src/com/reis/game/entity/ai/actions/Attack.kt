@@ -20,6 +20,8 @@ class Attack(private val damageSourceFactory: DamageSourceFactory):
         val damageSource = damageSourceFactory.buildDamageSource(entity)
         // TODO this feels hacky
         this.duration = damageSource.actionDuration
-        Main.getInstance().stage.addActor(damageSource)
+        // TODO change this
+        val stage = Main.getInstance().scene.stage
+        stage.addActor(damageSource)
     }
 }

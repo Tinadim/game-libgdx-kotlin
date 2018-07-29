@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.reis.game.contants.GameConstants;
 import com.reis.game.entity.GameEntity;
 import com.reis.game.entity.ai.controllers.AI;
@@ -29,6 +28,7 @@ import com.reis.game.mechanics.collision.CollisionTrigger;
 import com.reis.game.prototypes.AiProto;
 import com.reis.game.prototypes.AnimationProto;
 import com.reis.game.resources.ResourceManager;
+import com.reis.game.scene.Scene;
 import com.reis.game.scene.dialog.DialogManager;
 import com.reis.game.scene.dialog.DialogWindow;
 import com.reis.game.state.State;
@@ -41,7 +41,7 @@ public class Main extends ApplicationAdapter {
 
 	private static Main instance = null;
 
-	public Stage stage;
+	public Scene scene;
 	public ShapeRenderer shapeRenderer;
 	public GameEntity player = Player.INSTANCE;
 	public GameEntity entity2 = new GameEntity(2);
@@ -71,7 +71,8 @@ public class Main extends ApplicationAdapter {
 		dialogManager.loadDialogs();
 
 		shapeRenderer = new ShapeRenderer();
-		stage = new Stage(new ScreenViewport());
+		scene = new Scene();
+		scene.load("desert.tmx");
 
 		CombatComponent playerCombatComponent = new CombatComponent(player, 1);
 		playerCombatComponent.setContactDamage(0);
@@ -103,10 +104,13 @@ public class Main extends ApplicationAdapter {
 		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
 		trigger.setCoordinates(10, 10);
 
+		Stage stage = scene.getStage();
 		stage.addActor(player);
 		stage.addActor(entity2);
 		stage.addActor(femaleVillager);
 		stage.addActor(trigger);
+
+		scene.getCameraHandler().setEntityToFollow(player);
 
 		// TODO find way to call this automatically when scene starts
         // TODO rename this method maybe
@@ -122,19 +126,20 @@ public class Main extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		drawGrid();
-		stage.act(Gdx.graphics.getDeltaTime());
+		scene.update(Gdx.graphics.getDeltaTime());
 		collisionManager.update();
 		eventProcessor.update();
-		stage.draw();
+		scene.draw();
+		drawGrid();
 	}
 	
 	@Override
 	public void dispose () {
-
+        scene.dispose();
 	}
 
 	private void drawGrid() {
+	    Stage stage = scene.getStage();
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.setColor(Color.BLUE);
 		int cols = (int) stage.getWidth() / GameConstants.TILE_SIZE;
@@ -259,6 +264,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void addDialog(DialogWindow window) {
-		this.stage.addActor(window);
+        Stage stage = scene.getStage();
+		stage.addActor(window);
 	}
 }

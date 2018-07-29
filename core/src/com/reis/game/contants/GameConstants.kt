@@ -1,7 +1,6 @@
 package com.reis.game.contants
 
 object GameConstants {
-    const val GFX_PATH = "gfx/"
     const val TILE_SIZE = 16
     const val PLAYER_ID = 1
 
@@ -9,4 +8,6 @@ object GameConstants {
     const val EAST = 1
     const val SOUTH = 2
     const val WEST = 3
+
+    const val SCALE: Float = 1 / TILE_SIZE.toFloat()
 }
