@@ -21,7 +21,7 @@ class BodyComponent(entity: GameEntity): EntityComponent(entity) {
         this.collisionType = collisionType
     }
 
-    override fun onSceneStarted() {
+    override fun onAddedToScene() {
         bindTiles()
     }
 

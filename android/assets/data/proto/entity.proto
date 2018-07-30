@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_package="com.reis.game.prototypes";
+option java_outer_classname="EntityTypeProto";
+
+import "ai.proto";
+import "animation.proto";
+
+message EntityData {
+  int32 id = 1;
+  int32 row = 2;
+  int32 col = 3;
+  string templateName = 4;
+  AiData aiData = 5;
+  AnimationData animationData = 6;
+}

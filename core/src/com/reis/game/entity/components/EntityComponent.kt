@@ -11,7 +11,7 @@ import com.reis.game.mechanics.collision.CollisionListener
  */
 abstract class EntityComponent(protected val entity: GameEntity) : Component {
 
-    open fun onSceneStarted() {}
+    open fun onAddedToScene() {}
 
     open fun update(delta: Float) {}
 

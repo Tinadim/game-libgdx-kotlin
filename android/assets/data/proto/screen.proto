@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package="com.reis.game.prototypes";
+option java_outer_classname="ScreenProto";
+
+import "entity.proto";
+
+message ScreenData {
+  string backgroundMusicName = 1;
+  string tileMapName = 2;
+  repeated EntityData entityData = 3;
+}

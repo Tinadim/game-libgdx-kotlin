@@ -12,7 +12,7 @@ class EntityControllerComponent constructor(entity: GameEntity,
 
     private var currentAction: EntityAction? = null
 
-    override fun onSceneStarted() {
+    override fun onAddedToScene() {
         entityController.start()
     }
 

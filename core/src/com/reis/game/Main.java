@@ -104,20 +104,12 @@ public class Main extends ApplicationAdapter {
 		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
 		trigger.setCoordinates(10, 10);
 
-		Stage stage = scene.getStage();
-		stage.addActor(player);
-		stage.addActor(entity2);
-		stage.addActor(femaleVillager);
-		stage.addActor(trigger);
+		scene.addEntity(player);
+		scene.addEntity(entity2);
+		scene.addEntity(femaleVillager);
+		scene.addEntity(trigger);
 
 		scene.getCameraHandler().setEntityToFollow(player);
-
-		// TODO find way to call this automatically when scene starts
-        // TODO rename this method maybe
-		player.onSceneStarted();
-		entity2.onSceneStarted();
-		femaleVillager.onSceneStarted();
-		trigger.onSceneStarted();
 
 		Gdx.input.setInputProcessor(new InputHandler(controller));
 	}

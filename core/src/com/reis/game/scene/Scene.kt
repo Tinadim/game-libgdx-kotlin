@@ -9,29 +9,21 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
-import com.reis.game.Main
+import com.reis.game.entity.GameEntity
 import com.reis.game.util.MapUtils
 
-class Scene: Disposable {
+class Scene(val map: TiledMap): Disposable {
     var backgroundMusic: Music? = null
-    var map: TiledMap? = null
-    var mapRenderer: TiledMapRenderer? = null
+    var mapRenderer: TiledMapRenderer = OrthogonalTiledMapRenderer(map)
     val stage: Stage = Stage()
     val camera: OrthographicCamera = stage.camera as OrthographicCamera
     val cameraHandler: CameraHandler = CameraHandler(camera)
 
-    private val backgroundLayers: IntArray = intArrayOf(0)
-    private val foregroundLayers: IntArray = intArrayOf(1)
+    private val backgroundLayersIndexes: IntArray = intArrayOf(0)
+    private val foregroundLayersIndexes: IntArray = intArrayOf(1)
 
-    fun load(mapName: String) {
-        // TODO change this way of accessing resource manager
-        this.map = Main.getInstance().resourceManager.loadMap(mapName)
-        // TODO check scale and turn it into a constant
-        mapRenderer = OrthogonalTiledMapRenderer(this.map)
-        // mapRenderer = OrthogonalTiledMapRenderer(this.map, GameConstants.SCALE)
-        // TODO isolate cameraHandler creation, set width and height as constants
-        // cameraHandler.setToOrtho(false, 30f, 20f)
-        cameraHandler.bounds = MapUtils.getMapBounds(map!!)
+    init {
+        cameraHandler.bounds = MapUtils.getMapBounds(map)
     }
 
     fun update(delta: Float) {
@@ -40,19 +32,24 @@ class Scene: Disposable {
     }
 
     fun draw() {
-        mapRenderer?.setView(cameraHandler.camera)
-        // TODO render layers separately
-        mapRenderer?.render(backgroundLayers)
+        mapRenderer.setView(cameraHandler.camera)
+        mapRenderer.render(backgroundLayersIndexes)
         stage.draw()
-        mapRenderer?.render(foregroundLayers)
+        mapRenderer.render(foregroundLayersIndexes)
     }
 
     fun getWidth(): Float {
         return stage.viewport.screenWidth.toFloat()
     }
 
+    fun addEntity(entity: GameEntity) {
+        // TODO verify if stage will need layers as well
+        stage.addActor(entity)
+        entity.onAddedToScene()
+    }
+
     override fun dispose() {
         stage.dispose()
-        map?.dispose()
+        map.dispose()
     }
 }

@@ -47,9 +47,9 @@ open class GameEntity(val id: Int) : Group() {
         return super.remove()
     }
 
-    fun onSceneStarted() {
+    fun onAddedToScene() {
         this.components.getComponents().forEach {
-            it.onSceneStarted()
+            it.onAddedToScene()
         }
     }
 
