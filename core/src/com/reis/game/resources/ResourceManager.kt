@@ -62,7 +62,7 @@ class ResourceManager {
     }
 
     fun loadMap(name: String): TiledMap {
-        return TmxMapLoader().load(SCENES_PATH + name)
+        return TmxMapLoader().load("$TMX_PATH$name")
     }
 
     fun loadAtlas(name: String): TextureAtlas {

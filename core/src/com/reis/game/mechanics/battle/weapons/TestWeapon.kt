@@ -44,7 +44,7 @@ class TestWeapon: Weapon() {
     private fun calcInitialPositionAndVelocity(attacker: GameEntity, direction: Int,
             damageSource: DamageSource) {
         damageSource.addComponent(MovementComponent(damageSource))
-        damageSource.setSize(1, 1)
+        damageSource.setTileSize(1, 1)
 
         val baseY = attacker.y
         val baseX = attacker.x

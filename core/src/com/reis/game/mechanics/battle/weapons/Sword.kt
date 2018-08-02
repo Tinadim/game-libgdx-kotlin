@@ -25,7 +25,7 @@ class Sword: Weapon() {
                 .knockBackDistance(1)
                 .build()
 
-        damageSource.setSize(1, 1)
+        damageSource.setTileSize(1, 1)
         calcAttackRange(attacker, damageSource)
         return damageSource
     }

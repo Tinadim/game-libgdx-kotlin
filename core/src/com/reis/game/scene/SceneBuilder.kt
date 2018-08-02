@@ -21,8 +21,9 @@ object SceneBuilder {
     }
 
     private fun loadEntities(scene: Scene, entityDataList: List<EntityData>) {
+        val entityBuilder = EntityBuilder()
         entityDataList.forEach {
-            val entity = EntityBuilder.buildEntity(it)
+            val entity = entityBuilder.build(it)
             scene.addEntity(entity)
         }
     }

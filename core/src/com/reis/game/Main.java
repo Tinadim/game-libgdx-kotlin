@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.reis.game.contants.GameConstants;
+import com.reis.game.entity.EntityTemplateCache;
 import com.reis.game.entity.GameEntity;
 import com.reis.game.entity.ai.controllers.AI;
 import com.reis.game.entity.ai.controllers.AiFactory;
@@ -27,14 +28,21 @@ import com.reis.game.mechanics.collision.CollisionManager;
 import com.reis.game.mechanics.collision.CollisionTrigger;
 import com.reis.game.prototypes.AiProto;
 import com.reis.game.prototypes.AnimationProto;
+import com.reis.game.prototypes.EntityTypeProto;
+import com.reis.game.prototypes.ScreenProto;
 import com.reis.game.resources.ResourceManager;
 import com.reis.game.scene.Scene;
+import com.reis.game.scene.SceneBuilder;
 import com.reis.game.scene.dialog.DialogManager;
 import com.reis.game.scene.dialog.DialogWindow;
 import com.reis.game.state.State;
 import com.reis.game.state.events.EventProcessor;
 import com.reis.game.state.quests.QuestManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends ApplicationAdapter {
@@ -45,7 +53,6 @@ public class Main extends ApplicationAdapter {
 	public ShapeRenderer shapeRenderer;
 	public GameEntity player = Player.INSTANCE;
 	public GameEntity entity2 = new GameEntity(2);
-	public GameEntity femaleVillager = new GameEntity(4);
 	public CollisionTrigger trigger;
 	public ResourceManager resourceManager;
 	public CollisionManager collisionManager = new CollisionManager();
@@ -54,8 +61,11 @@ public class Main extends ApplicationAdapter {
 	public EventProcessor eventProcessor = new EventProcessor();
 	public AnimationCache animationCache = new AnimationCache();
 	public TextureManager textureManager = new TextureManager();
+	public EntityTemplateCache templateCache = new EntityTemplateCache();
 
 	public com.reis.game.event.EventProcessor newEventProcessor = new com.reis.game.event.EventProcessor();
+
+	public String sceneName = "scene-1.data";
 
 	public static Main getInstance() {
 		return Main.instance;
@@ -64,6 +74,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Main.instance = this;
+        buildMockScreen();
 
 		resourceManager = new ResourceManager();
 		State initialState = new State();
@@ -71,8 +82,7 @@ public class Main extends ApplicationAdapter {
 		dialogManager.loadDialogs();
 
 		shapeRenderer = new ShapeRenderer();
-		scene = new Scene();
-		scene.load("desert.tmx");
+		scene = SceneBuilder.loadScene(sceneName);
 
 		CombatComponent playerCombatComponent = new CombatComponent(player, 1);
 		playerCombatComponent.setContactDamage(0);
@@ -90,23 +100,12 @@ public class Main extends ApplicationAdapter {
 		entity2.addComponent(new SpriteComponent(entity2, Color.BLUE));
 		entity2.addComponent(new CombatComponent(entity2, 2));
 
-		int femaleVillagerRow = 5;
-		int femaleVillagerCol = 10;
-		AI ai = AiFactory.invoke(femaleVillager, buildMockAiData(femaleVillagerCol, femaleVillagerRow));
-		femaleVillager.setCoordinates(femaleVillagerRow, femaleVillagerCol);
-		femaleVillager.addComponent(new BodyComponent(femaleVillager));
-		femaleVillager.addComponent(new InteractionComponent(femaleVillager));
-		femaleVillager.addComponent(new AnimationComponent(femaleVillager, buildMockAnimation()));
-        femaleVillager.addComponent(new EntityControllerComponent(femaleVillager, ai));
-        femaleVillager.addComponent(new MovementComponent(femaleVillager));
-
 		trigger = new CollisionTrigger(3);
 		trigger.addComponent(new SpriteComponent(trigger, Color.GREEN));
 		trigger.setCoordinates(10, 10);
 
 		scene.addEntity(player);
 		scene.addEntity(entity2);
-		scene.addEntity(femaleVillager);
 		scene.addEntity(trigger);
 
 		scene.getCameraHandler().setEntityToFollow(player);
@@ -144,6 +143,39 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 		shapeRenderer.end();
+	}
+
+	private void buildMockScreen() {
+	    try {
+            String filename = ResourceManager.SCENES_PATH + sceneName;
+            File file = new File(filename);
+            FileOutputStream stream = new FileOutputStream(file);
+            EntityTypeProto.EntityData npcData = buildNpc();
+            ScreenProto.ScreenData screenData = ScreenProto.ScreenData.newBuilder()
+                    .addEntityData(npcData)
+                    .setTileMapName("desert.tmx")
+                    .build();
+            screenData.writeTo(stream);
+        } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+        } catch (IOException e) {
+	        e.printStackTrace();
+        }
+	}
+
+	private EntityTypeProto.EntityData buildNpc() {
+        int femaleVillagerRow = 5;
+        int femaleVillagerCol = 10;
+		return EntityTypeProto.EntityData.newBuilder()
+                .setId(4)
+                .setTemplateName("NpcTemplate")
+                .setAiData(buildMockAiData(femaleVillagerCol, femaleVillagerRow))
+                .setAnimationData(buildMockAnimation())
+                .setHeight(1)
+                .setWidth(1)
+                .setCol(femaleVillagerCol)
+                .setRow(femaleVillagerRow)
+                .build();
 	}
 
 	private AnimationProto.AnimationData buildMockAnimation() {

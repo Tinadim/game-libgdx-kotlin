@@ -29,7 +29,7 @@ open class GameEntity(val id: Int) : Group() {
     init {
         this.name = id.toString()
         this.setCoordinates(0, 0)
-        this.setSize(1, 1)
+        this.setTileSize(1, 1)
     }
 
     override fun act(delta: Float) {
@@ -123,7 +123,7 @@ open class GameEntity(val id: Int) : Group() {
     }
 
     fun setTileWidth(tileWidth: Int) {
-        this.setSize(tileWidth, this.tileHeight)
+        this.setTileSize(tileWidth, this.tileHeight)
     }
 
     fun getTileWidth(): Int {
@@ -131,14 +131,14 @@ open class GameEntity(val id: Int) : Group() {
     }
 
     fun setTileHeight(tileHeight: Int) {
-        this.setSize(this.tileWidth, tileHeight)
+        this.setTileSize(this.tileWidth, tileHeight)
     }
 
     fun getTileHeight(): Int {
         return this.tileHeight
     }
 
-    fun setSize(widthInTiles: Int, heightInTiles: Int): GameEntity {
+    fun setTileSize(widthInTiles: Int, heightInTiles: Int): GameEntity {
         this.tileWidth = widthInTiles
         this.tileHeight = heightInTiles
         this.calcSize(widthInTiles, heightInTiles)

@@ -26,7 +26,7 @@ class Bow: Weapon() {
                 .knockBackDistance(1)
                 .build()
         damageSource.addComponent(MovementComponent(damageSource))
-        damageSource.setSize(1, 1)
+        damageSource.setTileSize(1, 1)
         calcInitialPositionAndVelocity(attacker, damageSource)
         return damageSource
     }

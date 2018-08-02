@@ -13,7 +13,6 @@ import com.reis.game.entity.GameEntity
 import com.reis.game.util.MapUtils
 
 class Scene(val map: TiledMap): Disposable {
-    var backgroundMusic: Music? = null
     var mapRenderer: TiledMapRenderer = OrthogonalTiledMapRenderer(map)
     val stage: Stage = Stage()
     val camera: OrthographicCamera = stage.camera as OrthographicCamera

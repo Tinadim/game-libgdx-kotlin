@@ -8,7 +8,7 @@ import com.reis.game.entity.ai.actions.EntityAction
  * Created by bernardoreis on 12/25/17.
  */
 class EntityControllerComponent constructor(entity: GameEntity,
-    private val entityController: EntityController) : EntityComponent(entity) {
+        private val entityController: EntityController) : EntityComponent(entity) {
 
     private var currentAction: EntityAction? = null
 
@@ -20,7 +20,7 @@ class EntityControllerComponent constructor(entity: GameEntity,
         entityController.update(delta)
         // TODO check impact of this logic on the state machine
         // if (currentAction?.isFinished()) {
-            // currentAction = Idle()
+        // currentAction = Idle()
         // }
         // Action update already happens as part of the action update
         // currentAction.update(delta, entity)

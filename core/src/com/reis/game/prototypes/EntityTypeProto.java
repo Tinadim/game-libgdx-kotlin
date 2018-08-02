@@ -34,38 +34,48 @@ public final class EntityTypeProto {
     int getCol();
 
     /**
-     * <code>string templateName = 4;</code>
+     * <code>int32 width = 4;</code>
+     */
+    int getWidth();
+
+    /**
+     * <code>int32 height = 5;</code>
+     */
+    int getHeight();
+
+    /**
+     * <code>string templateName = 6;</code>
      */
     java.lang.String getTemplateName();
     /**
-     * <code>string templateName = 4;</code>
+     * <code>string templateName = 6;</code>
      */
     com.google.protobuf.ByteString
         getTemplateNameBytes();
 
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     boolean hasAiData();
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     com.reis.game.prototypes.AiProto.AiData getAiData();
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     com.reis.game.prototypes.AiProto.AiDataOrBuilder getAiDataOrBuilder();
 
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     boolean hasAnimationData();
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     com.reis.game.prototypes.AnimationProto.AnimationData getAnimationData();
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     com.reis.game.prototypes.AnimationProto.AnimationDataOrBuilder getAnimationDataOrBuilder();
   }
@@ -85,6 +95,8 @@ public final class EntityTypeProto {
       id_ = 0;
       row_ = 0;
       col_ = 0;
+      width_ = 0;
+      height_ = 0;
       templateName_ = "";
     }
 
@@ -134,13 +146,23 @@ public final class EntityTypeProto {
               col_ = input.readInt32();
               break;
             }
-            case 34: {
+            case 32: {
+
+              width_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              height_ = input.readInt32();
+              break;
+            }
+            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               templateName_ = s;
               break;
             }
-            case 42: {
+            case 58: {
               com.reis.game.prototypes.AiProto.AiData.Builder subBuilder = null;
               if (aiData_ != null) {
                 subBuilder = aiData_.toBuilder();
@@ -153,7 +175,7 @@ public final class EntityTypeProto {
 
               break;
             }
-            case 50: {
+            case 66: {
               com.reis.game.prototypes.AnimationProto.AnimationData.Builder subBuilder = null;
               if (animationData_ != null) {
                 subBuilder = animationData_.toBuilder();
@@ -217,10 +239,28 @@ public final class EntityTypeProto {
       return col_;
     }
 
-    public static final int TEMPLATENAME_FIELD_NUMBER = 4;
+    public static final int WIDTH_FIELD_NUMBER = 4;
+    private int width_;
+    /**
+     * <code>int32 width = 4;</code>
+     */
+    public int getWidth() {
+      return width_;
+    }
+
+    public static final int HEIGHT_FIELD_NUMBER = 5;
+    private int height_;
+    /**
+     * <code>int32 height = 5;</code>
+     */
+    public int getHeight() {
+      return height_;
+    }
+
+    public static final int TEMPLATENAME_FIELD_NUMBER = 6;
     private volatile java.lang.Object templateName_;
     /**
-     * <code>string templateName = 4;</code>
+     * <code>string templateName = 6;</code>
      */
     public java.lang.String getTemplateName() {
       java.lang.Object ref = templateName_;
@@ -235,7 +275,7 @@ public final class EntityTypeProto {
       }
     }
     /**
-     * <code>string templateName = 4;</code>
+     * <code>string templateName = 6;</code>
      */
     public com.google.protobuf.ByteString
         getTemplateNameBytes() {
@@ -251,43 +291,43 @@ public final class EntityTypeProto {
       }
     }
 
-    public static final int AIDATA_FIELD_NUMBER = 5;
+    public static final int AIDATA_FIELD_NUMBER = 7;
     private com.reis.game.prototypes.AiProto.AiData aiData_;
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     public boolean hasAiData() {
       return aiData_ != null;
     }
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     public com.reis.game.prototypes.AiProto.AiData getAiData() {
       return aiData_ == null ? com.reis.game.prototypes.AiProto.AiData.getDefaultInstance() : aiData_;
     }
     /**
-     * <code>.AiData aiData = 5;</code>
+     * <code>.AiData aiData = 7;</code>
      */
     public com.reis.game.prototypes.AiProto.AiDataOrBuilder getAiDataOrBuilder() {
       return getAiData();
     }
 
-    public static final int ANIMATIONDATA_FIELD_NUMBER = 6;
+    public static final int ANIMATIONDATA_FIELD_NUMBER = 8;
     private com.reis.game.prototypes.AnimationProto.AnimationData animationData_;
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     public boolean hasAnimationData() {
       return animationData_ != null;
     }
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     public com.reis.game.prototypes.AnimationProto.AnimationData getAnimationData() {
       return animationData_ == null ? com.reis.game.prototypes.AnimationProto.AnimationData.getDefaultInstance() : animationData_;
     }
     /**
-     * <code>.AnimationData animationData = 6;</code>
+     * <code>.AnimationData animationData = 8;</code>
      */
     public com.reis.game.prototypes.AnimationProto.AnimationDataOrBuilder getAnimationDataOrBuilder() {
       return getAnimationData();
@@ -314,14 +354,20 @@ public final class EntityTypeProto {
       if (col_ != 0) {
         output.writeInt32(3, col_);
       }
+      if (width_ != 0) {
+        output.writeInt32(4, width_);
+      }
+      if (height_ != 0) {
+        output.writeInt32(5, height_);
+      }
       if (!getTemplateNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, templateName_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, templateName_);
       }
       if (aiData_ != null) {
-        output.writeMessage(5, getAiData());
+        output.writeMessage(7, getAiData());
       }
       if (animationData_ != null) {
-        output.writeMessage(6, getAnimationData());
+        output.writeMessage(8, getAnimationData());
       }
       unknownFields.writeTo(output);
     }
@@ -343,16 +389,24 @@ public final class EntityTypeProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, col_);
       }
+      if (width_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, width_);
+      }
+      if (height_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, height_);
+      }
       if (!getTemplateNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, templateName_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, templateName_);
       }
       if (aiData_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getAiData());
+          .computeMessageSize(7, getAiData());
       }
       if (animationData_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, getAnimationData());
+          .computeMessageSize(8, getAnimationData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -376,6 +430,10 @@ public final class EntityTypeProto {
           == other.getRow());
       result = result && (getCol()
           == other.getCol());
+      result = result && (getWidth()
+          == other.getWidth());
+      result = result && (getHeight()
+          == other.getHeight());
       result = result && getTemplateName()
           .equals(other.getTemplateName());
       result = result && (hasAiData() == other.hasAiData());
@@ -405,6 +463,10 @@ public final class EntityTypeProto {
       hash = (53 * hash) + getRow();
       hash = (37 * hash) + COL_FIELD_NUMBER;
       hash = (53 * hash) + getCol();
+      hash = (37 * hash) + WIDTH_FIELD_NUMBER;
+      hash = (53 * hash) + getWidth();
+      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + getHeight();
       hash = (37 * hash) + TEMPLATENAME_FIELD_NUMBER;
       hash = (53 * hash) + getTemplateName().hashCode();
       if (hasAiData()) {
@@ -550,6 +612,10 @@ public final class EntityTypeProto {
 
         col_ = 0;
 
+        width_ = 0;
+
+        height_ = 0;
+
         templateName_ = "";
 
         if (aiDataBuilder_ == null) {
@@ -589,6 +655,8 @@ public final class EntityTypeProto {
         result.id_ = id_;
         result.row_ = row_;
         result.col_ = col_;
+        result.width_ = width_;
+        result.height_ = height_;
         result.templateName_ = templateName_;
         if (aiDataBuilder_ == null) {
           result.aiData_ = aiData_;
@@ -649,6 +717,12 @@ public final class EntityTypeProto {
         }
         if (other.getCol() != 0) {
           setCol(other.getCol());
+        }
+        if (other.getWidth() != 0) {
+          setWidth(other.getWidth());
+        }
+        if (other.getHeight() != 0) {
+          setHeight(other.getHeight());
         }
         if (!other.getTemplateName().isEmpty()) {
           templateName_ = other.templateName_;
@@ -765,9 +839,61 @@ public final class EntityTypeProto {
         return this;
       }
 
+      private int width_ ;
+      /**
+       * <code>int32 width = 4;</code>
+       */
+      public int getWidth() {
+        return width_;
+      }
+      /**
+       * <code>int32 width = 4;</code>
+       */
+      public Builder setWidth(int value) {
+        
+        width_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 width = 4;</code>
+       */
+      public Builder clearWidth() {
+        
+        width_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int height_ ;
+      /**
+       * <code>int32 height = 5;</code>
+       */
+      public int getHeight() {
+        return height_;
+      }
+      /**
+       * <code>int32 height = 5;</code>
+       */
+      public Builder setHeight(int value) {
+        
+        height_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 height = 5;</code>
+       */
+      public Builder clearHeight() {
+        
+        height_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object templateName_ = "";
       /**
-       * <code>string templateName = 4;</code>
+       * <code>string templateName = 6;</code>
        */
       public java.lang.String getTemplateName() {
         java.lang.Object ref = templateName_;
@@ -782,7 +908,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>string templateName = 4;</code>
+       * <code>string templateName = 6;</code>
        */
       public com.google.protobuf.ByteString
           getTemplateNameBytes() {
@@ -798,7 +924,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>string templateName = 4;</code>
+       * <code>string templateName = 6;</code>
        */
       public Builder setTemplateName(
           java.lang.String value) {
@@ -811,7 +937,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>string templateName = 4;</code>
+       * <code>string templateName = 6;</code>
        */
       public Builder clearTemplateName() {
         
@@ -820,7 +946,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>string templateName = 4;</code>
+       * <code>string templateName = 6;</code>
        */
       public Builder setTemplateNameBytes(
           com.google.protobuf.ByteString value) {
@@ -838,13 +964,13 @@ public final class EntityTypeProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.reis.game.prototypes.AiProto.AiData, com.reis.game.prototypes.AiProto.AiData.Builder, com.reis.game.prototypes.AiProto.AiDataOrBuilder> aiDataBuilder_;
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public boolean hasAiData() {
         return aiDataBuilder_ != null || aiData_ != null;
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public com.reis.game.prototypes.AiProto.AiData getAiData() {
         if (aiDataBuilder_ == null) {
@@ -854,7 +980,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public Builder setAiData(com.reis.game.prototypes.AiProto.AiData value) {
         if (aiDataBuilder_ == null) {
@@ -870,7 +996,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public Builder setAiData(
           com.reis.game.prototypes.AiProto.AiData.Builder builderForValue) {
@@ -884,7 +1010,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public Builder mergeAiData(com.reis.game.prototypes.AiProto.AiData value) {
         if (aiDataBuilder_ == null) {
@@ -902,7 +1028,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public Builder clearAiData() {
         if (aiDataBuilder_ == null) {
@@ -916,7 +1042,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public com.reis.game.prototypes.AiProto.AiData.Builder getAiDataBuilder() {
         
@@ -924,7 +1050,7 @@ public final class EntityTypeProto {
         return getAiDataFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       public com.reis.game.prototypes.AiProto.AiDataOrBuilder getAiDataOrBuilder() {
         if (aiDataBuilder_ != null) {
@@ -935,7 +1061,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>.AiData aiData = 5;</code>
+       * <code>.AiData aiData = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.reis.game.prototypes.AiProto.AiData, com.reis.game.prototypes.AiProto.AiData.Builder, com.reis.game.prototypes.AiProto.AiDataOrBuilder> 
@@ -955,13 +1081,13 @@ public final class EntityTypeProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.reis.game.prototypes.AnimationProto.AnimationData, com.reis.game.prototypes.AnimationProto.AnimationData.Builder, com.reis.game.prototypes.AnimationProto.AnimationDataOrBuilder> animationDataBuilder_;
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public boolean hasAnimationData() {
         return animationDataBuilder_ != null || animationData_ != null;
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public com.reis.game.prototypes.AnimationProto.AnimationData getAnimationData() {
         if (animationDataBuilder_ == null) {
@@ -971,7 +1097,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public Builder setAnimationData(com.reis.game.prototypes.AnimationProto.AnimationData value) {
         if (animationDataBuilder_ == null) {
@@ -987,7 +1113,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public Builder setAnimationData(
           com.reis.game.prototypes.AnimationProto.AnimationData.Builder builderForValue) {
@@ -1001,7 +1127,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public Builder mergeAnimationData(com.reis.game.prototypes.AnimationProto.AnimationData value) {
         if (animationDataBuilder_ == null) {
@@ -1019,7 +1145,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public Builder clearAnimationData() {
         if (animationDataBuilder_ == null) {
@@ -1033,7 +1159,7 @@ public final class EntityTypeProto {
         return this;
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public com.reis.game.prototypes.AnimationProto.AnimationData.Builder getAnimationDataBuilder() {
         
@@ -1041,7 +1167,7 @@ public final class EntityTypeProto {
         return getAnimationDataFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       public com.reis.game.prototypes.AnimationProto.AnimationDataOrBuilder getAnimationDataOrBuilder() {
         if (animationDataBuilder_ != null) {
@@ -1052,7 +1178,7 @@ public final class EntityTypeProto {
         }
       }
       /**
-       * <code>.AnimationData animationData = 6;</code>
+       * <code>.AnimationData animationData = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.reis.game.prototypes.AnimationProto.AnimationData, com.reis.game.prototypes.AnimationProto.AnimationData.Builder, com.reis.game.prototypes.AnimationProto.AnimationDataOrBuilder> 
@@ -1131,11 +1257,12 @@ public final class EntityTypeProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\014entity.proto\032\010ai.proto\032\017animation.prot" +
-      "o\"\210\001\n\nEntityData\022\n\n\002id\030\001 \001(\005\022\013\n\003row\030\002 \001(" +
-      "\005\022\013\n\003col\030\003 \001(\005\022\024\n\014templateName\030\004 \001(\t\022\027\n\006" +
-      "aiData\030\005 \001(\0132\007.AiData\022%\n\ranimationData\030\006" +
-      " \001(\0132\016.AnimationDataB+\n\030com.reis.game.pr" +
-      "ototypesB\017EntityTypeProtob\006proto3"
+      "o\"\247\001\n\nEntityData\022\n\n\002id\030\001 \001(\005\022\013\n\003row\030\002 \001(" +
+      "\005\022\013\n\003col\030\003 \001(\005\022\r\n\005width\030\004 \001(\005\022\016\n\006height\030" +
+      "\005 \001(\005\022\024\n\014templateName\030\006 \001(\t\022\027\n\006aiData\030\007 " +
+      "\001(\0132\007.AiData\022%\n\ranimationData\030\010 \001(\0132\016.An" +
+      "imationDataB+\n\030com.reis.game.prototypesB" +
+      "\017EntityTypeProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1156,7 +1283,7 @@ public final class EntityTypeProto {
     internal_static_EntityData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EntityData_descriptor,
-        new java.lang.String[] { "Id", "Row", "Col", "TemplateName", "AiData", "AnimationData", });
+        new java.lang.String[] { "Id", "Row", "Col", "Width", "Height", "TemplateName", "AiData", "AnimationData", });
     com.reis.game.prototypes.AiProto.getDescriptor();
     com.reis.game.prototypes.AnimationProto.getDescriptor();
   }

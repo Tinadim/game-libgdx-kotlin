@@ -9,7 +9,9 @@ message EntityData {
   int32 id = 1;
   int32 row = 2;
   int32 col = 3;
-  string templateName = 4;
-  AiData aiData = 5;
-  AnimationData animationData = 6;
+  int32 width = 4;
+  int32 height = 5;
+  string templateName = 6;
+  AiData aiData = 7;
+  AnimationData animationData = 8;
 }

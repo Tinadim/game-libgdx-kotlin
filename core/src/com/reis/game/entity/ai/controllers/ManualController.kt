@@ -36,6 +36,8 @@ class ManualController(private val entity: GameEntity): EntityController,
 
     override fun start() {}
 
+    override fun update(delta: Float) {}
+
     fun handleDirectionalInput(direction: Vector2) {
         entity.requireComponent<MovementComponent>(MovementComponent::class.java).move(direction)
     }
@@ -62,6 +64,4 @@ class ManualController(private val entity: GameEntity): EntityController,
             actionHandler = previousHandler
         }
     }
-
-    override fun update(delta: Float) {}
 }
