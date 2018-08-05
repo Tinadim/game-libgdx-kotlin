@@ -3,8 +3,8 @@ package com.reis.game.entity.components
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.reis.game.Main
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.EntityAction
-import com.reis.game.entity.ai.actions.Idle
+import com.reis.game.entity.actions.EntityAction
+import com.reis.game.entity.actions.Idle
 import com.reis.game.event.Event
 import com.reis.game.event.EventFilter
 import com.reis.game.event.EventListener

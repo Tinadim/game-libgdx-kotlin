@@ -6,7 +6,7 @@ import com.reis.game.Main
 import com.reis.game.contants.ActionConstants
 import com.reis.game.contants.GameConstants
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.EntityAction
+import com.reis.game.entity.actions.EntityAction
 import com.reis.game.prototypes.AnimationProto.AnimationData
 import com.reis.game.prototypes.AnimationProto.AnimationPrototype
 import kotlin.reflect.KClass

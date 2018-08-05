@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.reis.game.contants.GameConstants
-import com.reis.game.entity.ai.actions.EntityAction
+import com.reis.game.entity.actions.EntityAction
 import com.reis.game.entity.components.BodyComponent
 import com.reis.game.entity.components.ComponentsBag
 import com.reis.game.entity.components.EntityComponent

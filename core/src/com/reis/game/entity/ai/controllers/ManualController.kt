@@ -3,10 +3,10 @@ package com.reis.game.entity.ai.controllers
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.Main
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.handlers.ActionHandler
-import com.reis.game.entity.ai.actions.handlers.AttackHandler
-import com.reis.game.entity.ai.actions.handlers.DialogHandler
-import com.reis.game.entity.ai.actions.handlers.InteractionHandler
+import com.reis.game.entity.actions.handlers.ActionHandler
+import com.reis.game.entity.actions.handlers.AttackHandler
+import com.reis.game.entity.actions.handlers.DialogHandler
+import com.reis.game.entity.actions.handlers.InteractionHandler
 import com.reis.game.entity.components.MovementComponent
 import com.reis.game.mechanics.collision.Collision
 import com.reis.game.mechanics.collision.CollisionListener

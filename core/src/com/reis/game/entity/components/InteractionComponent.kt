@@ -1,7 +1,7 @@
 package com.reis.game.entity.components
 
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.Interaction
+import com.reis.game.entity.actions.Interaction
 
 /**
  * Created by bernardoreis on 2/11/18.

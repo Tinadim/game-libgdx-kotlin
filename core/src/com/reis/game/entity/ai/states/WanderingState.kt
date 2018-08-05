@@ -2,7 +2,7 @@ package com.reis.game.entity.ai.states
 
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.Movement
+import com.reis.game.entity.actions.Movement
 import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.TransitionCondition
 import com.reis.game.entity.components.MovementComponent
@@ -16,8 +16,7 @@ class WanderingState(private val waypoints: Array<Vector2>): State() {
         val entity = ai.entity
         val movementComponent = entity
                 .requireComponent<MovementComponent>(MovementComponent::class.java)
-        val action = Movement(movementComponent.defaultVelocity, getNextWaypoint())
-        ai.addAction(action)
+        movementComponent.move(movementComponent.defaultVelocity, getNextWaypoint())
     }
 
     private fun getNextWaypoint(): Vector2 {

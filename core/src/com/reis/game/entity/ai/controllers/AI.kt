@@ -2,7 +2,7 @@ package com.reis.game.entity.ai.controllers
 
 import com.reis.game.Main
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.EntityAction
+import com.reis.game.entity.actions.EntityAction
 import com.reis.game.entity.ai.states.InterruptedState
 import com.reis.game.entity.ai.states.State
 import com.reis.game.entity.components.EntityControllerComponent

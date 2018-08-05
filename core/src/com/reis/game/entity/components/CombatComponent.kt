@@ -3,8 +3,8 @@ package com.reis.game.entity.components
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.addAction
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.Attack
-import com.reis.game.entity.ai.actions.KnockBack
+import com.reis.game.entity.actions.Attack
+import com.reis.game.entity.actions.KnockBack
 import com.reis.game.entity.player.Player
 import com.reis.game.mechanics.battle.DamageSource
 import com.reis.game.mechanics.battle.DamageSourceFactory

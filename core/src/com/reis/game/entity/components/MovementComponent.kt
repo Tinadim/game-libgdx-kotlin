@@ -2,7 +2,7 @@ package com.reis.game.entity.components
 
 import com.badlogic.gdx.math.Vector2
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.actions.Movement
+import com.reis.game.entity.actions.Movement
 
 /**
  * Created by bernardoreis on 1/1/18.
@@ -12,8 +12,13 @@ class MovementComponent(entity: GameEntity): EntityComponent(entity) {
     var velocity: Vector2 = Vector2.Zero
     private var body: BodyComponent? = entity.getComponent(BodyComponent::class.java)
 
-    fun move(direction: Vector2) {
-        val action = Movement(direction)
+    fun move(velocity: Vector2) {
+        val action = Movement(velocity)
+        entity.addAction(action)
+    }
+
+    fun move(velocity: Vector2, destination: Vector2) {
+        val action = Movement(velocity, destination)
         entity.addAction(action)
     }
 

@@ -88,9 +88,12 @@ public class Main extends ApplicationAdapter {
 		playerCombatComponent.setContactDamage(0);
 		playerCombatComponent.setPrimaryDamageSource(new TestWeapon());
 		ManualController controller = new ManualController(player);
+		AnimationProto.AnimationData playerAnimationData = Player.buildPlayerAnimationData();
+
         player.addComponent(new BodyComponent(player));
         player.addComponent(playerCombatComponent);
         player.addComponent(new SpriteComponent(player, Color.WHITE));
+        player.addComponent(new AnimationComponent(player, playerAnimationData));
         player.addComponent(new EntityControllerComponent(player, controller));
         player.addComponent(new MovementComponent(player));
         player.addComponent(new InteractionComponent(player));

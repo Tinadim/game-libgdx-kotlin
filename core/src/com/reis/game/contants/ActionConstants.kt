@@ -1,7 +1,7 @@
 package com.reis.game.contants
 
 object ActionConstants {
-    const val ACTION_PACKAGE = "com.reis.game.entity.ai.actions"
+    const val ACTION_PACKAGE = "com.reis.game.entity.actions"
     const val MIN_PRIORITY = 0
     const val MOVE_PRIORITY = 1
     const val ATTACK_PRIORITY = 4

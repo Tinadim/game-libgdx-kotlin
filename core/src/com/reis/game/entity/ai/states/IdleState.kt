@@ -3,8 +3,8 @@ package com.reis.game.entity.ai.states
 import com.reis.game.contants.ActionConstants.BASE_TURN_DURATION
 import com.reis.game.contants.ActionConstants.DEFAULT_MAX_IDLE_TURNS
 import com.reis.game.contants.ActionConstants.DEFAULT_MIN_IDLE_TURNS
-import com.reis.game.entity.ai.actions.EntityAction
-import com.reis.game.entity.ai.actions.Idle
+import com.reis.game.entity.actions.EntityAction
+import com.reis.game.entity.actions.Idle
 import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.TransitionCondition
 import com.reis.game.util.Utils
