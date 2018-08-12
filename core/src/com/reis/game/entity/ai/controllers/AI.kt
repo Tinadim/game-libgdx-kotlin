@@ -19,7 +19,7 @@ import com.reis.game.prototypes.AiProto.AiData
  * to feed the action processor, and the the action priority system will decide if the
  * current action should be replaced
  */
-abstract class AI constructor(val entity: GameEntity): EntityController, EventListener {
+abstract class AI constructor(val entity: GameEntity): EventListener {
 
     private var currentState: State? = null
 
@@ -43,7 +43,7 @@ abstract class AI constructor(val entity: GameEntity): EntityController, EventLi
         return currentState
     }
 
-    override fun update(delta: Float) {
+    fun update(delta: Float) {
         currentState?.update(delta)
         val transition = currentState?.checkTransitions()
         val nextState = transition?.getNextState()

@@ -26,6 +26,15 @@ class PlayerAi(entity: GameEntity): AI(entity),
 
     private var previousState: State? = null
 
+    init {
+        // TODO change this way of registering listeners.
+        // Perhaps envity should extend event emitter, and a way to use would be
+        // entity.on(EVENT_TYPE.COLLISION, this)
+        // entity.on(EVENT_TYPE.DIALOG, this)
+        Main.getInstance().collisionManager.registerListener(entity, this)
+        Main.getInstance().dialogManager.registerListener(entity, this)
+    }
+
     override fun setCurrentState(state: State) {
         previousState = getCurrentState()
         super.setCurrentState(state)
@@ -45,6 +54,7 @@ class PlayerAi(entity: GameEntity): AI(entity),
     }
 
     override fun onDialogEnded(dialog: DialogWindow) {
+        // TODO should these be transitions?
         val previousState = this.previousState
         if (!Main.getInstance().dialogManager.hasDialogs(entity) && previousState != null) {
             setCurrentState(previousState)
