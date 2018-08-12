@@ -5,7 +5,5 @@ package com.reis.game.entity.ai.controllers
  */
 interface EntityController {
 
-    fun start()
-
     fun update(delta: Float)
 }

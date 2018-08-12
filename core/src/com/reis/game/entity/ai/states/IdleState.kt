@@ -9,9 +9,9 @@ import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.TransitionCondition
 import com.reis.game.util.Utils
 
-class IdleState: State() {
-    override fun enterState(ai: AI) {
-        super.enterState(ai)
+class IdleState(ai: AI): State(ai) {
+    override fun enterState() {
+        super.enterState()
         val action = createRandomIdleAction()
         ai.addAction(action)
     }

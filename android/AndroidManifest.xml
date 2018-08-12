@@ -14,10 +14,10 @@
             android:label="@string/app_name" 
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize">
-            <intent-filter>
+            <intent-collisio>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-collisio>
         </activity>
     </application>
 

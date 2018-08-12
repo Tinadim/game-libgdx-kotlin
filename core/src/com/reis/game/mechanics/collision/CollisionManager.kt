@@ -65,7 +65,7 @@ class CollisionManager {
     }
 
     private fun notifyListener(listener: CollisionListener, collision: Collision, ended: Boolean) {
-        val filter = listener.filter
+        val filter = listener.collisionFilter
         if (filter == null || filter.test(collision)) {
             if (ended) {
                 listener.onCollisionEnded(collision)

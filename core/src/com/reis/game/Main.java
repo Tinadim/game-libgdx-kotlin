@@ -12,6 +12,7 @@ import com.reis.game.entity.GameEntity;
 import com.reis.game.entity.ai.controllers.AI;
 import com.reis.game.entity.ai.controllers.AiFactory;
 import com.reis.game.entity.ai.controllers.ManualController;
+import com.reis.game.entity.ai.controllers.implementation.PlayerAi;
 import com.reis.game.entity.components.AnimationComponent;
 import com.reis.game.entity.components.EntityControllerComponent;
 import com.reis.game.entity.components.BodyComponent;
@@ -87,14 +88,15 @@ public class Main extends ApplicationAdapter {
 		CombatComponent playerCombatComponent = new CombatComponent(player, 1);
 		playerCombatComponent.setContactDamage(0);
 		playerCombatComponent.setPrimaryDamageSource(new TestWeapon());
-		ManualController controller = new ManualController(player);
 		AnimationProto.AnimationData playerAnimationData = Player.buildPlayerAnimationData();
+		AiProto.AiData playerAiData = Player.buildPlayerAiData();
+		EntityControllerComponent playerController = new EntityControllerComponent(player, playerAiData);
 
         player.addComponent(new BodyComponent(player));
         player.addComponent(playerCombatComponent);
         player.addComponent(new SpriteComponent(player, Color.WHITE));
         player.addComponent(new AnimationComponent(player, playerAnimationData));
-        player.addComponent(new EntityControllerComponent(player, controller));
+        player.addComponent(playerController);
         player.addComponent(new MovementComponent(player));
         player.addComponent(new InteractionComponent(player));
 
@@ -113,7 +115,8 @@ public class Main extends ApplicationAdapter {
 
 		scene.getCameraHandler().setEntityToFollow(player);
 
-		Gdx.input.setInputProcessor(new InputHandler(controller));
+		PlayerAi playerAi = (PlayerAi) playerController.getAi();
+		Gdx.input.setInputProcessor(new InputHandler(playerAi));
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 package com.reis.game.mechanics.collision
 
-import com.reis.game.util.Filter
+import com.reis.game.mechanics.collision.filters.CollisionFilter
 
 /**
  * Created by bernardoreis on 1/7/18.
  */
 interface CollisionListener {
 
-    val filter: Filter<Collision>?
+    val collisionFilter: CollisionFilter?
 
     fun onCollisionStarted(collision: Collision)
 

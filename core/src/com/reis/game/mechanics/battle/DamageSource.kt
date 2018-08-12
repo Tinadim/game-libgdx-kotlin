@@ -11,6 +11,7 @@ import com.reis.game.entity.components.SpriteComponent
 import com.reis.game.mechanics.collision.Collision
 import com.reis.game.mechanics.collision.CollisionListener
 import com.reis.game.mechanics.collision.CollisionType
+import com.reis.game.mechanics.collision.filters.CollisionFilter
 import com.reis.game.mechanics.collision.filters.TriggerFilter
 import com.reis.game.util.Filter
 
@@ -106,8 +107,8 @@ class DamageSource private constructor(): GameEntity(-1) {
     }
 
     class DamageSourceCollisionListener: CollisionListener {
-        // TODO filter friendly entities
-        override val filter: Filter<Collision> = TriggerFilter()
+        // TODO eventFilter friendly entities
+        override val collisionFilter: CollisionFilter = TriggerFilter()
 
         override fun onCollisionStarted(collision: Collision) {
             val damageSource = collision.entity as DamageSource

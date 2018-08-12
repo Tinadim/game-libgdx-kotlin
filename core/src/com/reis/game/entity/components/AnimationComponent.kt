@@ -54,7 +54,7 @@ class AnimationComponent(entity: GameEntity, animationData: AnimationData): Enti
         currentAnimation = animation
     }
 
-    override val filter: EventFilter = object : EventFilter() {
+    override val eventFilter: EventFilter = object : EventFilter() {
         override fun test(event: Event): Boolean {
             val originator = event.data as GameEntity
             return originator === entity

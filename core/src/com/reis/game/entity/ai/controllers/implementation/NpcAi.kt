@@ -10,10 +10,10 @@ import com.reis.game.entity.ai.transitions.StateTransition
 import com.reis.game.prototypes.AiProto.AiData
 import com.reis.game.util.AiUtils
 
-class NpcAi(entity: GameEntity, aiData: AiData): AI(entity, aiData) {
+class NpcAi(entity: GameEntity): AI(entity) {
     override fun buildStateMachine(data: AiData): State {
-        val idle = IdleState()
-        val wandering = WanderingState(AiUtils.extractWayPoints(data))
+        val idle = IdleState(this)
+        val wandering = WanderingState(this, AiUtils.extractWayPoints(data))
 
         val idleToIdle = StateTransition(idle, 0)
         val idleToWandering = StateTransition(wandering, 1)
@@ -32,4 +32,5 @@ class NpcAi(entity: GameEntity, aiData: AiData): AI(entity, aiData) {
         idle.sortTransitions()
         return idle
     }
+
 }

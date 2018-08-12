@@ -3,12 +3,11 @@ package com.reis.game.input
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.math.Vector2
-import com.reis.game.entity.ai.controllers.ManualController
 
 /**
  * Created by bernardoreis on 1/2/18.
  */
-class InputHandler(private val entityController: ManualController): InputProcessor {
+class InputHandler(private val inputDispatcher: InputDispatcher): InputProcessor {
 
     private val direction: Vector2 = Vector2(0f, 0f)
 
@@ -65,13 +64,13 @@ class InputHandler(private val entityController: ManualController): InputProcess
     }
 
     private fun updateDirection(x: Float, y: Float): Boolean {
-        this.direction.add(x, y)
-        this.entityController.handleDirectionalInput(this.direction.cpy())
+        direction.add(x, y)
+        inputDispatcher.handleDirectionalInput(this.direction.cpy())
         return true
     }
 
     private fun executeAction(): Boolean {
-        this.entityController.executePrimaryAction()
+        inputDispatcher.executePrimaryAction()
         return true
     }
 }

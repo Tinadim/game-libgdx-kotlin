@@ -21,7 +21,7 @@ import com.reis.game.scene.dialog.DialogWindow
 class ManualController(private val entity: GameEntity): EntityController,
         CollisionListener, DialogListener {
 
-    override val filter: CollisionFilter = FriendlyEntityCollision()
+    override val collisionFilter: CollisionFilter = FriendlyEntityCollision()
     private var actionHandler: ActionHandler = AttackHandler(entity)
         set(value) {
             previousHandler = actionHandler
@@ -34,8 +34,6 @@ class ManualController(private val entity: GameEntity): EntityController,
         Main.getInstance().dialogManager.registerListener(entity, this)
     }
 
-    override fun start() {}
-
     override fun update(delta: Float) {}
 
     fun handleDirectionalInput(direction: Vector2) {
@@ -47,7 +45,7 @@ class ManualController(private val entity: GameEntity): EntityController,
     }
 
     override fun onCollisionStarted(collision: Collision) {
-        // TODO filter triggers
+        // TODO eventFilter triggers
         actionHandler = InteractionHandler(entity, collision.collidedWith)
     }
 

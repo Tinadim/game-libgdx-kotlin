@@ -2,7 +2,7 @@
 female_villager.png
 size: 256,32
 format: RGBA8888
-filter: Linear,Linear
+collisio: Linear,Linear
 repeat: none
 female_villager_0
   rotate: false

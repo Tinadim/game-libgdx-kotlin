@@ -2,6 +2,7 @@ package com.reis.game.entity.player
 
 import com.reis.game.contants.GameConstants
 import com.reis.game.entity.GameEntity
+import com.reis.game.prototypes.AiProto.AiData
 import com.reis.game.prototypes.AnimationProto.AnimationData
 import com.reis.game.prototypes.AnimationProto.AnimationPrototype
 import com.reis.game.prototypes.AnimationProto.AnimationFrame
@@ -10,6 +11,14 @@ import com.reis.game.prototypes.AnimationProto.AnimationFrame
  * Created by bernardoreis on 12/20/17.
  */
 object Player: GameEntity(GameConstants.PLAYER_ID) {
+    @JvmStatic
+    fun buildPlayerAiData(): AiData {
+        return AiData
+                .newBuilder()
+                .setAiType("PlayerAi")
+                .build()
+    }
+
     @JvmStatic
     fun buildPlayerAnimationData(): AnimationData {
         val data = ArrayList<AnimationPrototype>()

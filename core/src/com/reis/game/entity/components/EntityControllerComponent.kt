@@ -1,23 +1,29 @@
 package com.reis.game.entity.components
 
 import com.reis.game.entity.GameEntity
-import com.reis.game.entity.ai.controllers.EntityController
 import com.reis.game.entity.actions.EntityAction
+import com.reis.game.entity.ai.controllers.AI
+import com.reis.game.entity.ai.controllers.AiFactory
+import com.reis.game.prototypes.AiProto.AiData
 
 /**
  * Created by bernardoreis on 12/25/17.
  */
 class EntityControllerComponent constructor(entity: GameEntity,
-        private val entityController: EntityController) : EntityComponent(entity) {
+        private val aiData: AiData) : EntityComponent(entity) {
 
     private var currentAction: EntityAction? = null
 
+    val ai: AI = AiFactory.invoke(entity, aiData)
+
     override fun onAddedToScene() {
-        entityController.start()
+        // TODO this shouldn't be stored inside the controller component
+        val state = ai.buildStateMachine(aiData)
+        ai.start(state)
     }
 
     override fun update(delta: Float) {
-        entityController.update(delta)
+        ai.update(delta)
         // TODO check impact of this logic on the state machine
         // if (currentAction?.isFinished()) {
         // currentAction = Idle()

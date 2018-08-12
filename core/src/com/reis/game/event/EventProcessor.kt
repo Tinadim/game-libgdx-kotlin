@@ -23,7 +23,7 @@ class EventProcessor {
     fun processEvent(event: Event) {
         val listenersForType = listeners[event.type]
         listenersForType?.forEach {
-            val passFilter = it.filter?.test(event) ?: true
+            val passFilter = it.eventFilter?.test(event) ?: true
             if (passFilter) {
                 it.onEvent(event)
             }

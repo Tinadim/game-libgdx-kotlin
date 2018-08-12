@@ -10,6 +10,7 @@ import com.reis.game.mechanics.battle.DamageSource
 import com.reis.game.mechanics.battle.DamageSourceFactory
 import com.reis.game.mechanics.collision.Collision
 import com.reis.game.mechanics.collision.CollisionListener
+import com.reis.game.mechanics.collision.filters.CollisionFilter
 import com.reis.game.mechanics.collision.filters.EnemyEntityCollision
 import com.reis.game.util.Filter
 
@@ -27,7 +28,7 @@ class CombatComponent(entity: GameEntity, private val team: Int): EntityComponen
     // TODO turn this into a list
     private var primaryDamageSourceFactory: DamageSourceFactory? = null
 
-    override val filter: Filter<Collision> = EnemyEntityCollision()
+    override val collisionFilter: CollisionFilter = EnemyEntityCollision()
 
     companion object {
         const val BLINK_DURATION = 0.15f

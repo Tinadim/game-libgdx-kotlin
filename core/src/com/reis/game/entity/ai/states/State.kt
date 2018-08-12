@@ -13,25 +13,25 @@ import com.reis.game.entity.ai.transitions.StateTransition
  * There's no need to check transitions manually during the state update call, as that will be
  * invoked by the AI itself.
  */
-open class State {
+open class State(val ai: AI) {
 
-    private var transitions: ArrayList<StateTransition>? = null
+    var transitions: ArrayList<StateTransition>? = null
 
     /**
      * This, ideally is where the action would be created and fed to the action processor
      */
-    open fun enterState(ai: AI) {}
+    open fun enterState() {}
 
     /**
      * This method should be used for cleanups or to store data before transitioning to a new state
      */
-    open fun leaveState(ai: AI, nextState: State) {}
+    open fun leaveState(nextState: State) {}
 
     /**
      * Used for custom logic during the state update. No need to check for transitions here
      * as that is invoked by the AI itself
      */
-    open fun update(ai: AI, delta: Float) {}
+    open fun update(delta: Float) {}
 
     fun addTransitions(transitions: ArrayList<StateTransition>) {
         transitions.forEach { this.addTransition(it) }
@@ -47,7 +47,7 @@ open class State {
         transitions.add(transition)
     }
 
-    fun checkTransitions(ai: AI): StateTransition? {
+    fun checkTransitions(): StateTransition? {
         return this.transitions?.find { it.shouldExecute(ai) }
     }
 

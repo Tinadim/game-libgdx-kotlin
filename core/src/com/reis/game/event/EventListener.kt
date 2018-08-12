@@ -5,7 +5,7 @@ package com.reis.game.event
  */
 interface EventListener {
 
-    val filter: EventFilter?
+    val eventFilter: EventFilter?
 
     fun onEvent(event: Event)
 }

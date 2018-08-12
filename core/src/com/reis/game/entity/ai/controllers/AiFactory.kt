@@ -11,8 +11,8 @@ class AiFactory {
             // TODO revisit this way of creating AI instances
             val className = "${AiConstants.AI_IMPLEMENTATION_PACKAGE}.${data.aiType}"
             val constructor = Class.forName(className)
-                    .getConstructor(GameEntity::class.java, AiData::class.java)
-            return constructor.newInstance(entity, data) as AI
+                    .getConstructor(GameEntity::class.java)
+            return constructor.newInstance(entity) as AI
         }
     }
 }

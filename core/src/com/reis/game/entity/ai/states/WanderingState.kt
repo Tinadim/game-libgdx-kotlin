@@ -7,12 +7,12 @@ import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.TransitionCondition
 import com.reis.game.entity.components.MovementComponent
 
-class WanderingState(private val waypoints: Array<Vector2>): State() {
+class WanderingState(ai: AI, private val waypoints: Array<Vector2>): State(ai) {
 
     private var currentWaypointIndex: Int = 0
 
-    override fun enterState(ai: AI) {
-        super.enterState(ai)
+    override fun enterState() {
+        super.enterState()
         val entity = ai.entity
         val movementComponent = entity
                 .requireComponent<MovementComponent>(MovementComponent::class.java)

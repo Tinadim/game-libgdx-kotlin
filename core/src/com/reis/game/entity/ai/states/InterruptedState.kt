@@ -5,7 +5,7 @@ import com.reis.game.entity.ai.controllers.AI
 import com.reis.game.entity.ai.transitions.StateTransition
 import com.reis.game.entity.ai.transitions.TransitionCondition
 
-class InterruptedState(previousState: State, action: EntityAction): State() {
+class InterruptedState(ai: AI, previousState: State, action: EntityAction): State(ai) {
 
     init {
         val condition = object : TransitionCondition {
